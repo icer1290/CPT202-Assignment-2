@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Posting details</title>
+		<script src="../jquary.js"></script>
+		<script src="../cookie.js"></script>
+		<script src="vue.js"></script>
+		<link rel="stylesheet" href="企业发布.css">
+		<script>
+			window.onload = function() {
+				var email = ReadCookie("email");
+				var order = ReadCookie("jobOrder");
+				
+				document.getElementById('confirm').onclick = function() {
+					if (document.getElementById('types').value == '' || document.getElementById('industry').value == '') {
+						alert('你还没有选完!');
+					} else if(document.body.contains(document.getElementById('job')) == false || document.getElementById('job').value == ''){
+						alert('你还没有选择岗位!');
+					} else{
+						var a = document.getElementById('types').value;
+						var b = document.getElementById('industry').value;
+						var c = document.getElementById('job').value;
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/postJob",
+							data: {
+								email: email,
+								jobOrder: order,
+								jobType: a,
+								industry: b,
+								jobTitle: c
+								
+							},
+							success: function(data) {
+								if (data == 1) {
+									alert('发布成功！');
+									window.location = '企业职位-选择.html';
+								} else{
+									alert('已更新该岗位的发布信息！')
+								}
+							}
+						})
+					}
+				}
+			}
+		</script>
+	</head>
+ 
+	<body>
+		<div class="main">
+			<span class="title">类型</span><br><br>
+			<select id="types">
+				<option value="">-请选择类型-</option>
+				<option value="实习">实习</option>
+				<option value="校招">校招</option>
+			</select><br>
+				
+			<div id="hole">
+				<span class="title">行业</span><br><br>
+				<select id="industry" @change="a1">
+					<option value="">-请选择行业-</option>
+					<option value="互联网">互联网</option>
+					<option value="设计/传媒">设计/传媒</option>
+					<option value="金融">金融</option>
+					<option value="商务">商务</option>
+					<option value="生物医疗">生物医疗</option>
+				</select><br>
+				
+				<span class="title">职位</span><br><br>
+				<div id="jobs">
+					<select id="job" v-if="type === '互联网'">
+						<option value="">-请选择职位-</option>
+						<option value="产品运营">产品运营</option>
+						<option value="内容运营">内容运营</option>
+						<option value="产品经理">产品经理</option>
+						<option value="前端">前端</option>
+						<option value="后端">后端</option>
+						<option value="测试">测试</option>
+					</select>
+					<select id="job" v-else-if="type === '设计/传媒'">
+						<option value="">-请选择职位-</option>
+						<option value="策划">策划</option>
+						<option value="传媒">传媒</option>
+						<option value="剪辑/后期">剪辑/后期</option>
+						<option value="版式设计">版式设计</option>
+						<option value="编导">编导</option>
+						<option value="多媒体制作">多媒体制作</option>
+					</select>
+					<select id="job" v-else-if="type === '金融'">
+						<option value="">-请选择职位-</option>
+						<option value="风控">风控</option>
+						<option value="基金">基金</option>
+						<option value="经济研究">经济研究</option>
+						<option value="互联网金融">互联网金融</option>
+						<option value="证券">证券</option>
+						<option value="分析师">分析师</option>
+					</select>
+					<select id="job" v-else-if="type === '商务'">
+						<option value="">-请选择职位-</option>
+						<option value="市场商务">市场商务</option>
+						<option value="企划">企划</option>
+						<option value="市场顾问">市场顾问</option>
+						<option value="网络营销">网络营销</option>
+						<option value="海外市场">海外市场</option>
+						<option value="商品经理">商品经理</option>
+					</select>
+					<select id="job" v-else-if="type === '生物医疗'">
+						<option value="">-请选择职位-</option>
+						<option value="生物制药">生物制药</option>
+						<option value="生物工程">生物工程</option>
+						<option value="医疗器械">医疗器械</option>
+						<option value="临床研究">临床研究</option>
+						<option value="生信">生信</option>
+						<option value="医药项目经理">医药项目经理</option>
+					</select>
+				</div><br>
+			</div>
+			<div class="button">
+			  <button id="confirm">确认发布</button>
+			</div>
+		</div>
+
+		<script>
+			new Vue({
+				el: "#hole",
+				data: {
+					type: 0
+				},
+				methods: {
+					a1() {
+						this.type = document.getElementById('industry').value;
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,146 @@
+*{
+    margin:0;
+    padding:0;
+}
+/*全页面设定*/
+html{
+    background: url(img/企业注册背景1.png) no-repeat 0px 0px;
+    height: 100%; 
+    width: 100%;
+    overflow: hidden;
+    margin:0;
+    padding:0;
+    background-size: 100% 100%;
+    -moz-backgrond-size:100% 100% ;
+   
+}
+body{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    height: 100%;
+}
+.err {
+	position: absolute;
+	left: 590px;
+	top: ;
+}
+@font-face {
+    font-family: Alibaba;
+    src: url(Alibaba-PuHuiTi-Regular.ttf);
+
+}
+/*主体位置*/
+.main{
+    width:45%;
+    display:inline-block;
+    justify-content: space-around;
+    text-align: center;
+    position: relative;
+    font-family: cool;
+    font-size: large;
+    font-family: Alibaba;
+    font-size: larger;
+    color:#707070;
+    
+}
+
+@font-face {
+    font-family: cool;
+    src: url(ZhanKuWenYiTi-2.ttf);
+
+}
+h1{
+    margin-bottom: -20px;
+    text-align: center;
+    font-family: cool;
+    font-size: xx-large;
+    color: #707070;
+}
+/*input框设定*/
+input{
+    margin-left: 30px;
+    border-radius: 5px;
+    border-style: hidden;
+    height: 40px;
+    width:300px;
+    background-color:#E6E6E6 ;
+    outline:none;
+    color:#707070;
+    padding-left: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 5px #93B4EA;
+	
+	
+}
+/*select框设定*/
+select{
+    margin-left: 30px;
+    text-align: center;
+    border-radius: 5px;
+    border-style: hidden;
+    height: 42px;
+    width:310px;
+    background-color:#E6E6E6 ;
+    outline:none;
+    color:#707070;
+    padding-left: 10px;
+    box-shadow: 2px 2px 5px #93B4EA;
+}
+/*图案加入*/
+#email{
+    margin-bottom: 10px;
+    background: url(img/邮箱.png) no-repeat;
+    background-size:3.5em;
+    background-position:3px;
+    background-color:#E6E6E6;  
+}
+#comName{
+    margin-bottom: 10px;
+    background: url(img/公司.png) no-repeat;
+    background-size:3em;
+    background-position:3px;
+    background-color:#E6E6E6;  
+}
+#location{
+    margin-bottom: 10px;
+    background: url(img/地址.png) no-repeat;
+    background-size:2.5em;
+    background-position:3px;
+    background-color:#E6E6E6;  
+}
+#comtype{
+  
+    background: url(img/公司类型.png) no-repeat;
+    background-size:2.5em;
+    background-position:3px;
+    background-color:#E6E6E6;  
+}
+
+#position{
+    margin-top: -10px;
+    background: url(img/人员类型.png) no-repeat;
+    background-size:2.5em;
+    background-position:3px;
+    background-color:#E6E6E6;  
+}
+/*按钮设定*/
+#createBtn{
+    background-color: #93B4EA;
+    padding-left: 4px;
+    color: aliceblue;
+    width: 140px;
+    height: 50px;
+    box-shadow: 0px 2px 5px gray;
+    border:1px #93B4EA solid;
+    border-radius: 10px;
+    margin-left:150px;
+	font-size: 20px;
+}
+
+.add{
+    margin-left: 50px;
+    text-decoration:none;
+    color:red;
+    font-size: smaller;
+}

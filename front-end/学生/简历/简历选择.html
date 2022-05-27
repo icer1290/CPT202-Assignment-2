@@ -1,0 +1,133 @@
+<!-- 需求：（设计）
+		1. 背景：参考之前编辑个人信息的背景，应与个人中心界面配合
+		2. 标题“选择你的简历”大号加粗
+	选择简历按钮
+		3. 前面几个选择简历的按钮（现在这三个只是方便设计，之后会自动增删）在设计时统一用
+			.resume提取
+		4. 选择简历按钮的样式参考我画图的pdf，长条形宽度与页面尺寸相当
+	    5. 给这几个选择简历按钮设计个鼠标悬停的样式（如鼠标放上去时颜色加深）-->
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>简历选择</title>
+	<script src="resume%20select.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../jquary.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../useful.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<!-- 在这里编辑 -->
+<style type="text/css">
+	html {
+		width: 500px;
+	}
+	/* 滚动条样式 */
+	::-webkit-scrollbar {
+	            width: 5px;
+	            height: 5px;
+	        }
+	        ::-webkit-scrollbar-thumb{
+	            background-color: #999;
+	            -webkit-border-radius: 5px;
+	            border-radius: 5px;
+	        }
+	        ::-webkit-scrollbar-thumb:vertical:hover{
+	            background-color: #666;
+	        }
+	        ::-webkit-scrollbar-thumb:vertical:active{
+	            background-color: #333;
+	        }
+	        ::-webkit-scrollbar-button{
+	            display: none;
+	        }
+	        ::-webkit-scrollbar-track{
+	            background-color: #f1f1f1;
+	        }
+
+	#resumes{
+		position: relative;
+		left: 20%;
+	}
+
+	* {
+		line-height: 30px;
+		font-size: large;
+	}
+
+	@font-face {
+		font-family: Alibaba;
+		src: url(Alibaba-PuHuiTi-Regular.ttf);
+
+	}
+
+	.resume {	
+		/* margin: 5px; */
+		display: inline-block;
+		width: 400px;
+		height: 40px;
+		text-indent: 100px;
+		/* line-height: 60px; */
+		text-decoration: none;
+		font-family: Alibaba;
+		background-color: white;
+		background-image: url(./img/简历选择_各简历头部图标.png);
+		background-position: left top;
+		background-size: 180px 38px;
+		background-repeat: no-repeat;
+	}
+	.resume:hover {
+		cursor: pointer;
+	}
+
+	@font-face {
+		font-family: YS;
+		src: url(YSHaoShenTi-2.ttf);
+	}
+
+	.create {	
+		border: 3px white solid;
+		background-color: aliceblue;
+		text-decoration: none;
+		width: 100px;
+		height: 50px;
+		text-align: center;
+		position: relative;
+		left: 50%;
+		box-sizing: border-box;
+		border-radius: 50px;
+		font-family: YS;
+		
+	}
+	.create:hover {
+		cursor: pointer;
+	}
+
+	@font-face {
+		font-family: cool;
+		src: url(ZhanKuWenYiTi-2.ttf);
+	}
+
+	h1 {
+		padding-top: 3px;
+		font-family: cool;
+		font-size: xx-large;
+	}
+	p{
+		position: fixed;
+	}
+</style>
+
+<body>
+	<h1>选择你的简历</h1><br>
+	<div id="resumes">
+		
+	</div>
+	<input type="button" id="create" value="新建简历" class="create"/>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+ /*全页面设定*/
+ ::-webkit-scrollbar {
+             width: 5px;
+             height: 5px;
+         }
+         ::-webkit-scrollbar-thumb{
+             background-color: #999;
+             -webkit-border-radius: 5px;
+             border-radius: 5px;
+         }
+         ::-webkit-scrollbar-thumb:vertical:hover{
+             background-color: #666;
+         }
+         ::-webkit-scrollbar-thumb:vertical:active{
+             background-color: #333;
+         }
+         ::-webkit-scrollbar-button{
+             display: none;
+         }
+         ::-webkit-scrollbar-track{
+             background-color: #f1f1f1;
+         }
+  html {
+    background-color: white;
+    height: 100%;
+    width: 50%;
+    /* overflow: hidden; */
+    margin: 5px;
+    padding: 10px;
+    background-size: 100% 100%;
+  }
+  body {
+    line-height: 1.8em;
+    position: relative;
+    top: 10px;
+    left:270px;
+    letter-spacing: 2px;
+    color: #707070;
+  }
+  h1{
+    padding: 10px;
+    display: inline-block;
+    border:2px solid #93B4EA;
+    border-radius: 10px;
+    font-size: xx-large;
+  }
+  #JOBs{
+  	  position: relative;
+  	  left: 2.5%;
+  	  /* margin-bottom: 20px; */
+  }
+  .job{
+    position: relative;
+    left:80px;
+    border-radius: 5px;
+    border: 2.5px solid #A6A6A6;
+    height: 70px;
+    width: 500px;
+    margin-top: 10px;
+    background-color: aliceblue;
+    background: url('../img/简历选择_各简历头部图标.png') no-repeat;
+    background-size: 60px;
+    background-position: left;
+    font-size: large;
+    letter-spacing: medium;
+    text-align: left;
+    padding-left: 60px;
+    color: #707070;
+  }
+  .job:hover {
+  	cursor: pointer;
+  }
+  #addJob {
+    position: relative;
+	left: 63px;
+    top:0px;
+    
+    background-color: white;
+    padding-left: 7px;
+    color: #707070;
+    width: 180px;
+    height: 60px;
+    border: 3.5px #C2D4F0 solid;
+    border-radius: 5px;
+    margin-left: 180px;
+	margin-bottom: 70px;
+    font-size: x-large;
+    letter-spacing: 2px;
+  }
+  #addJob:hover {
+  	cursor: pointer;
+  }

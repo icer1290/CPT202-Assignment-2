@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Start</title>
+		<link rel="stylesheet" href="企业/auto.css" type="text/css">
+		<style>
+			@font-face {
+				font-family: 'zhankuwenyiti';
+				src: url("企业/ZhanKuWenYiTi-2.ttf");
+			}
+
+			.main {
+				height: 100%;
+				width: 100%;
+				background: url("企业/img/bg.jpg") no-repeat;
+				background-size: 100% 100%;
+				position: relative;
+			}
+
+			.box {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				width: 50%;
+				height: 50%;
+				background: #fff;
+				transform: translate(-50%, -50%);
+				border-radius: 14px;
+				color: #707070;
+			}
+
+			.select {
+				padding: 30px;
+			}	
+
+			p {
+				font-family: 'zhankuwenyiti';
+				font-size: 20px;
+			}
+
+			p:nth-child(2) {
+				margin-top: 10px;
+				font-size: 40px;
+				padding-left: 10px;
+			}
+
+			.role {
+				display: flex;
+				text-align: center;
+				justify-content: space-between;
+				width: 60%;
+				margin: 0 auto;
+				padding-top: 3%;
+			}
+
+			.role>div {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.role img {
+				width: 180px;
+			}
+
+			.role>div>div {
+				/*width: 120%;*/
+				height: 60px;
+				background: #E6E6E6;
+				line-height: 60px;
+				font-size: 26px;
+			}
+
+			.student>div {
+				box-shadow: 10px 10px 20px #e36caa;
+			}
+
+
+
+			/* 给需要动画的元素加过渡属性 */
+			.student img,
+			.student div {
+				transition: all .5s;
+			}
+
+			/* hover之后图片放大的效果 */
+			.student:hover img {
+				transform: scale(1.1);
+			}
+
+			.student:hover {
+				cursor: pointer;
+			}
+
+
+
+
+			.company>div {
+				box-shadow: 10px 10px 20px #36a9ba;
+			}
+
+			/* 给需要动画的元素加过渡属性 */
+			.company img,
+			.company div {
+				transition: all .5s;
+			}
+
+			/* hover之后图片放大的效果 */
+			.company:hover img {
+				transform: scale(1.1);
+			}
+			
+			.company:hover {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div class="box">
+				<div class="select">
+					<p>请选择</p>
+					<p>您的角色</p>
+				</div>
+				<div class="role">
+					<div class="student">
+						<img src="企业/img/student.png" alt="" onclick="window.location = '学生/login.html'">
+						<div id="student" onclick="window.location = '学生/login.html'">我是学生</div>
+					</div>
+					<div class="company">
+						<img src="企业/img/school.png" alt="" onclick="window.location = '企业/企业登录.html'">
+						<div id="company" onclick="window.location = '企业/企业登录.html'">我是企业</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

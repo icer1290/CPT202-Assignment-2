@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="cookie.js"></script>
+		<script src="jquary.js"></script>
+	</head>
+	<body>
+		<script>
+			var username = ReadCookie("username");
+			var r_order = ReadCookie("resumeOrder");
+			var email = ReadCookie("email");
+			var job_id = ReadCookie("careerCenterJobId");
+			$.ajax({
+				type: "POST",
+				url: "http://127.0.0.1:8080/sendResume",
+				data: {
+					username: username,
+					r_order: r_order,
+					email: email,
+					job_id: job_id
+				},
+				success: function(response) {
+					if (response==1) {
+						alert("投递成功！");
+					} else{
+						alert("你已经投递过简历！");
+					}
+					window.location = 'iframe-查看职位.html';
+				}
+			})
+		</script>
+	</body>
+</html>

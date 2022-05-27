@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>个人中心</title>
+	<style type="text/css">
+		body {
+			box-sizing: border-box;
+			background-image: url(./图片/内框.jpg);
+
+		}
+
+		/*头部的排列，部分style元素加在html代码中*/
+		div.header {
+			position: relative;
+			left: -10%;
+			width: 70%;
+			margin: 50px 25% 0 25%;
+			border-top-left-radius: 40px 40px;
+			border-top-right-radius: 40px 40px;
+			background-image: url(./图片/外框1.jpg);
+		}
+
+		#headportrait {
+			height: 100px;
+			width: 100px;
+			margin-left: 100px;
+			/* background-image: url(./图片/female.png); */
+			background-repeat: no-repeat;
+			background-size: 100px;
+			border-radius: 50%;
+			position: relative;
+			top: 10%;
+			left: 38%;
+		}
+		
+		.basic{
+			text-align: center;
+			top:150px;
+			position: relative;
+			color:rgb(255, 148, 255);
+			font-size: 22px;
+		}
+
+
+		/*中间主体样式*/
+		div.container {
+			width: 70%;
+			height: 600px;
+			margin: auto;
+			background-image: url(./图片/外框1.jpg);
+
+		}
+
+		.leftBox {
+			width: 200px;
+			height: 400px;
+			left: 15%;
+			margin-top: 100px;
+			position: relative;
+			line-height: 80px;
+			text-align: center;
+			font-size: larger;
+			column-gap: 5px;
+			
+		}
+		
+		.rightBox {
+			left: 30%;
+			width: 50%;
+			top: 60px;
+			text-align: center;
+			position: relative;
+		
+		}
+		
+		#iframe {
+			position: absolute;
+			top: 20px;
+			left: 100px;
+			width: 700px;
+			height: 500px;
+		}
+
+		/*按钮样式*/
+		#editInfo {
+			width: 125px;
+			height: 40px;
+			border-radius: 18px;
+			background: linear-gradient(225deg, #ffe2f0, #e0beca);
+			box-shadow: -10px 10px 20px #c2a5af, 10px -10px 20px #ffffff;
+			font-size: 15px;
+		}
+		#editInfo:hover {
+			cursor: pointer;
+		}
+
+		#logout {
+			width: 125px;
+			height: 40px;
+			border-radius: 18px;
+			background: linear-gradient(225deg, #ffffff, #e6e6e6);
+			box-shadow: -10px 10px 20px #c7c7c7, 10px -10px 20px #ffffff;
+			font-size: 15px;
+		}
+		#logout:hover {
+			cursor: pointer;
+		}
+
+		#resume {
+			width: 125px;
+			height: 40px;
+			border-radius: 18px;
+			background: linear-gradient(225deg, #ffffff, #e6e6e6);
+			box-shadow: -10px 10px 20px #c7c7c7, 10px -10px 20px #ffffff;
+			font-size: 15px;
+
+		}
+		#resume:hover {
+			cursor: pointer;
+		}
+
+		/*底部样*/
+		div.bottom {
+			width: 70%;
+			height: 80px;
+			margin: auto;
+			letter-spacing: 2em;
+			border-bottom-left-radius: 40px 40px;
+			border-bottom-right-radius: 40px 40px;
+			background-image: url(./图片/外框3.jpg);
+		}
+
+		#homePage {
+			position: relative;
+			left: 25%;
+			top: 28px;
+		}
+		#homePage:hover {
+			cursor: pointer;
+		}
+		
+		#myself {
+			position: relative;
+			left: 50%;
+			top: 28px;
+		}
+		#myself:hover {
+			cursor: pointer;
+		}
+		#return {
+		    position: relative;
+		    left: 65%;
+		    top: -3%;
+		    border: 0;
+		    width: 40px;
+		    height: 40px;
+		    background: url('简历/img/返回.png') no-repeat;
+		    background-size: 80%;
+			background-position: 4px;
+		    border: 2px solid #707070;
+		    border-radius: 50%;
+		}
+		#return:hover {
+			cursor: pointer;
+		}
+	</style>
+	<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			/* 调用cookie中的用户名来展示头部信息 */
+			var username = ReadCookie("username");
+			password = ReadCookie("password");
+			var email = "";
+			var school = "";
+			var sex = "";
+			/* 提交用户名、返回邮箱和学校名称并给他们赋值 */
+			$.ajax({
+				type: "POST",
+				url: "http://127.0.0.1:8080/basicInfo",
+				data:
+				{//JSON对象
+					username: username
+				},
+				//请求成功时调用的函数
+				success: function (data) {
+					var i = data.indexOf("?");
+					var j = data.indexOf("%");
+					email += data.substring(0, i);
+					school += data.substring(i + 1, j);
+					sex += data.substring(j + 1, data.length);
+					document.getElementById("info").innerHTML = "用户名：" + username + "   邮箱：" + email + "   学校：" + school;
+					
+					var head = document.getElementById('headportrait');
+					if (sex == "男") {
+						head.setAttribute('style', 'background-image: url(图片/male.png);');
+					} else if(sex == "女"){
+						head.setAttribute('style', 'background-image: url(./图片/female.png);');
+					}
+				}
+			})
+
+
+			/* 给左侧按钮绑定onclick 来实现切换右侧界面 */
+			document.getElementById("editInfo").onclick = function () {
+				document.getElementById("iframe").src = "个人中心：编辑信息.html";
+				document.getElementById("iframe").style.visibility = 'visible';
+			}
+			document.getElementById("resume").onclick = function(){
+				document.getElementById("iframe").src = '简历/简历选择.html';
+			}
+			document.getElementById("logout").onclick = function () {
+				alert("注销成功");
+				window.location = "login.html";
+			}
+
+
+			/* 给底部按钮绑定onclick 来实现切换整体页面 */
+			document.getElementById("homePage").onclick = function () {
+				window.location = "../CareerCenter/homepage.html";
+			}
+			document.getElementById("myself").onclick = function () {
+				window.location = "个人中心.html";
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="header">	
+		<div class="basic">
+		<span id="info"></span>
+		</div>
+		
+		<div id="headportrait"></div>
+		<!--插入上传图像部分，插入图像后删掉css部分的backgroundcolor-->
+	</div> <!-- 顶部空间 -->
+	<div class="container">
+		<button id="return" onclick="window.location = 'login.html'"></button>
+		<!-- 中间主体内容空间 -->
+		<div class="leftBox" style="float:left; z-index: 999;">
+			<!-- 主体左侧窗口 -->
+			<input type="button" id="editInfo" value="编辑信息" /><br><br> <!-- 编辑信息按钮 -->
+			<input type="button" id="resume" value="简历" /><br><br><!-- 简历按钮 -->
+			<input type="button" id="logout" value="注销登录" /><br><br><!-- 注销按钮 -->
+		</div>
+		<div class="rightBox">
+			<!-- 主体右侧窗口 -->
+			<!-- 用 id=iframe 的小窗口作为右侧展示-->
+			<iframe src='个人中心：编辑信息.html' frameborder="0" id="iframe" scrolling="auto"></iframe>			<!-- width="330px" height="350px"  -->
+		</div>
+	</div>
+	<div class="bottom">
+		<!-- 底部空间 -->
+		<a herf="https://www.bilibili.com/"><img src="./图片/homePage.png" id="homePage"  width="50px" height="50px" hspace="50"></a>
+		<a herf=""><img src="./图片/myself.png" id="myself" width="50px" height="50px" hspace="50"></a>
+	</div>
+</body>
+
+</html>

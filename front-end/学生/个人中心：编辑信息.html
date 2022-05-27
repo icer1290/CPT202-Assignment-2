@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑信息</title>
+		<style type="text/css">
+			/* 滚动条样式 */
+			::-webkit-scrollbar {
+			            width: 5px;
+			            height: 5px;
+			        }
+			        ::-webkit-scrollbar-thumb{
+			            background-color: #999;
+			            -webkit-border-radius: 5px;
+			            border-radius: 5px;
+			        }
+			        ::-webkit-scrollbar-thumb:vertical:hover{
+			            background-color: #666;
+			        }
+			        ::-webkit-scrollbar-thumb:vertical:active{
+			            background-color: #333;
+			        }
+			        ::-webkit-scrollbar-button{
+			            display: none;
+			        }
+			        ::-webkit-scrollbar-track{
+			            background-color: #f1f1f1;
+			        }6
+					
+			html {
+				position: relative;
+				left: 10%;
+				
+			}
+			
+			input {
+				position: relative;
+				left: 8%;
+				border: 2px solid #ccc;
+				border-radius: 5px;
+				width: 250px;
+			}
+			
+			span {
+				font-size: 12px;
+				color: red;
+			}
+			*{
+				line-height: 27px;
+			}
+			h2{
+				left:50px;
+				position: relative;
+			}
+			#editbtn{
+				position: relative;
+				left: 18%;
+				width: 125px;
+				height: 40px;
+				border-radius: 18px;
+				background: linear-gradient(225deg, #ffe2f0, #e0beca);
+				box-shadow: -10px 10px 20px #c2a5af, 10px -10px 20px #ffffff;
+			}
+			#editbtn:hover {
+				cursor: pointer;
+			}
+		</style>	
+	</head>
+	<body>
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				/* 填充默认信息 */
+				username = ReadCookie("username");
+				var age;
+				var phone;
+				var emali;
+				var school;
+				$.ajax({
+					type:"POST",
+					url:"http://127.0.0.1:8080/beforeEdit",
+					data: 
+					{//JSON对象
+						username : username
+					},
+					//请求成功时调用的函数
+					success:function(data){
+						/*按照 # $ % 来分隔*/
+						/* 20 # 15176451326 $ 1670145088@qq.com % XJTLU */
+						var a = data.indexOf("#");
+						var b = data.indexOf("$");
+						var c = data.indexOf("%");
+						age = data.substring(0,a);
+						phone = data.substring(a+1,b);
+						email = data.substring(b+1,c);
+						school = data.substring(c+1,data.length);
+						document.getElementById("age").value = age;
+						document.getElementById("phone").value = phone;
+						document.getElementById("email").value = email;
+						document.getElementById("edu").value = school;
+					}
+				})
+				
+				/* 更改、提交个人信息 */
+				var emailErrorSpan = document.getElementById("emailError");
+				// 给id="email"的节点绑定blur事件
+				var emailElt = document.getElementById("email");
+				emailElt.onblur = function(){
+					// 获取邮箱
+					var email = emailElt.value;
+					// 去除掉前后空白
+					email = email.trim();
+					// 邮箱不能为空,不能为空串
+					if(email == ""){
+						emailErrorSpan.innerHTML = "邮箱不能为空";
+					}else{
+							// 邮箱不为空,接下来继续判断邮箱格式是否正确
+							var regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+							var ok = regExp.test(email)
+							if(ok){
+								// 合法
+								emailErrorSpan.innerHTML = "";
+							}else{
+								// 不合法
+								emailErrorSpan.innerHTML = "邮箱格式不正确";	
+							}
+						
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				emailElt.onfocus = function(){
+					emailErrorSpan.innerHTML = "";
+				}
+				
+				var ageErrorSpan = document.getElementById("ageError");
+				
+				// 给id="age"的节点绑定blur事件
+				var ageElt = document.getElementById("age");
+				ageElt.onblur = function(){
+					// 获取年龄
+					var age = ageElt.value;
+					// 去除掉前后空白
+					age = age.trim();
+					// 年龄不能为空,不能为空串
+					if(age == ""){
+						ageErrorSpan.innerHTML = "年龄不能为空";
+					}else{
+						// 年龄不为空,并且长度也合法,接下来继续判断年龄中是否有特殊符号
+						var regExp = /^\d{2}$/
+						var ok = regExp.test(age)
+						if(ok){
+							// 合法
+							ageErrorSpan.innerHTML = "";
+						}else{
+							// 不合法
+							ageErrorSpan.innerHTML = "请输入正确年龄（两位阿拉伯数字）";	
+						}
+						}
+					}
+				
+				
+				// 获得焦点:清空span的错误信息.
+				ageElt.onfocus = function(){
+					ageErrorSpan.innerHTML = "";
+				}
+				
+				
+				var phoneErrorSpan = document.getElementById("phoneError");
+				
+				// 给id="phone"的节点绑定blur事件
+				var phoneElt = document.getElementById("phone");
+				phoneElt.onblur = function(){
+					var phone = phoneElt.value;
+					// 去除掉前后空白
+					phone = phone.trim();
+					if(phone == ""){
+						phoneErrorSpan.innerHTML = "电话不能为空";
+					}else{
+						var regExp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+						var ok = regExp.test(phone)
+						if(ok){
+							// 合法
+							phoneErrorSpan.innerHTML = "";
+						}else{
+							// 不合法
+							phoneErrorSpan.innerHTML = "请输入正确电话格式";	
+						}
+						}
+					}
+				
+				
+				// 获得焦点:清空span的错误信息.
+				phoneElt.onfocus = function(){
+					phoneErrorSpan.innerHTML = "";
+				}
+				
+				
+				var eduErrorSpan = document.getElementById("eduError");
+				
+				// 给id="edu"的节点绑定blur事件
+				var eduElt = document.getElementById("edu");
+				eduElt.onblur = function(){
+					var edu = eduElt.value;
+					// 去除掉前后空白
+					edu = edu.trim();
+					if(edu == ""){
+						eduErrorSpan.innerHTML = "学校不能为空";
+					}else{
+						var regExp = /^.{2,20}$/
+						var ok = regExp.test(edu)
+						if(ok){
+							// 合法
+							eduErrorSpan.innerHTML = "";
+						}else{
+							// 不合法
+							eduErrorSpan.innerHTML = "请输入正确学校名称";	
+						}
+						}
+					}
+				
+				
+				// 获得焦点:清空span的错误信息.
+				eduElt.onfocus = function(){
+					eduErrorSpan.innerHTML = "";
+				}
+				
+				
+				document.getElementById("editbtn").onclick = function(){
+					
+		
+					
+					document.getElementById("age").focus();
+					document.getElementById("age").blur();
+					
+					document.getElementById("phone").focus();
+					document.getElementById("phone").blur();
+						
+					document.getElementById("email").focus();
+					document.getElementById("email").blur();
+					
+					document.getElementById("edu").focus();
+					document.getElementById("edu").blur();
+					
+					// 当所有的span都是空的表示表单合法
+					if(eduErrorSpan.innerHTML == "" && phoneErrorSpan.innerHTML == ""&& emailErrorSpan.innerHTML == ""
+					&& ageErrorSpan.innerHTML == ""){
+						
+						$.ajax({
+							type:"POST",
+							url:"http://127.0.0.1:8080/edit",
+							// dataType: 'jsonp',
+							data: 
+							{//JSON对象
+								username : username,
+								email : document.getElementById("email").value,
+								school : document.getElementById("edu").value,
+								phone : document.getElementById("phone").value,
+								age : document.getElementById("age").value
+							},
+							//请求成功时调用的函数
+							success:function(data){    //data是形参名，代表返回的数据
+								if (data == 1) {
+									alert("修改成功！")
+								} else{
+									alert("修改失败！")
+								}
+							}
+						})
+					}
+				}
+			}
+		
+		</script>
+		<div class="edit">
+			<form target="_blank" action="" method="post" id="form">
+			<h1>编辑你的信息</h1><br>
+				&emsp;&emsp;年龄：&emsp;&emsp;<input type="text" name="age" id="age""><span id="ageError"></span><br><br><br>
+				&emsp;&emsp;手机：&emsp;&emsp;<input type="text" name="phone" id="phone"><span id="phoneError"></span><br><br><br>
+				&emsp;&emsp;邮箱：&emsp;&emsp;<input type="text" name="email" id="email"/><span id="emailError"></span><br><br><br>
+				&emsp;&emsp;毕业学校：<input type="text" name="edu" id="edu"><span id="eduError"></span><br><br>
+				<input type="button" value="确认更改" id="editbtn"/>
+			</form>
+		</div>
+	</body>
+</html>

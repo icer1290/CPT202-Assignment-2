@@ -1,0 +1,120 @@
+@font-face {
+	font-family: asfAsfafasgaasg;
+	src: url('../img/asfAsfafasgaasg.ttf');
+
+	font-family: 狮尾幼体;
+	src: url('../img/狮尾圆体 Medium.ttf');
+
+	font-family: Alibaba-PuHuiTi-Regular;
+	src: url('../Alibaba-PuHuiTi-Regular.ttf');
+
+	font-family: ZhanKuWenYiTi-2;
+	src: url('../ZhanKuWenYiTi-2.ttf');
+}
+
+* {
+	font-family: ZhanKuWenYiTi-2;
+	margin: 0;
+	padding: 0;
+}
+
+/*全页面设定*/
+html {
+	background: url(../img/企业背景图.png) no-repeat 0px 0px;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background-size: 100% 100%;
+	-moz-backgrond-size: 100% 100%;
+
+}
+
+#iframe {
+	border: 0ch;
+	position: relative;
+	top: 13px;
+	left: 16%;
+}
+
+.header {
+	position: relative;
+	top: 25px;
+	left: 6.7%;
+}
+
+button {
+	position: relative;
+	top: 20px;
+	left: -150px;
+}
+
+/* 按钮点击后更改的颜色 
+.btnonchoose {
+    background-color: white !important;
+}*/
+
+#myBusiness {
+	background-color: #C2D4F0;
+	color: #707070;
+	width: 150px;
+	height: 50px;
+	border: none;
+	box-shadow: 1px -1px 5px rgb(147, 146, 146);
+	border-top-left-radius: 5px;
+	margin-left: 330px;
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+#myBusiness:hover {
+	cursor: pointer;
+}
+
+#postJob {
+	background-color: #C2D4F0;
+	color: #707070;
+	width: 150px;
+	height: 50px;
+	margin-left: -3.5px;
+	border: none;
+	border-top-right-radius: 5px;
+	box-shadow: 1px -1px 5px rgb(147, 146, 146);
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+#postJob:hover {
+	cursor: pointer;
+}
+
+#humanResou {
+	background-color: #C2D4F0;
+	color: #707070;
+	width: 150px;
+	height: 50px;
+	margin-left: -3.5px;
+	border: none;
+	border-top-right-radius: 5px;
+	box-shadow: 1px -1px 5px rgb(147, 146, 146);
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+#humanResou:hover {
+	cursor: pointer;
+}
+#return {
+    position: relative;
+    left: 0%;
+    top: 25px;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: url('../img/返回.png') no-repeat;
+    background-size: 80%;
+	background-position: 4px;
+    border: 2px solid #707070;
+    border-radius: 50%;
+}
+#return:hover {
+	cursor: pointer;
+}

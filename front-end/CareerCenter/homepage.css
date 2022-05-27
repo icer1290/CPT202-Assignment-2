@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #e9d1f3;
+}
+.container {
+    width: 1400px;
+    height: 800px;
+    /*text-align: center;*/
+    margin: 0 auto;
+}
+iframe {
+	position: relative;
+	left: 14.5%;
+    width: 1400px;
+    height: 800px;
+}
+.bottom {
+    width: 1000px;
+    margin: 0 auto 0;
+    display: flex;
+}
+.bottom > div {
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+.bottom img {
+    height: 80px;
+}

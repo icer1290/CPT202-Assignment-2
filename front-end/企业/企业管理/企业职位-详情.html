@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>job</title>
+		<link href="企业职位-详情.css" rel="stylesheet">
+		<script src="../cookie.js"></script>
+		<script src="../jquary.js"></script>
+		<script>
+			window.onload = function() {
+				var email = ReadCookie("email");
+				var order = ReadCookie("jobOrder");
+				
+				// 验证岗位名格式
+				var nameErrorSpan = document.getElementById("nameError");
+				// 给id="jobName"的节点绑定blur事件
+				var jobNameElt = document.getElementById("jobName");
+				jobNameElt.onblur = function() {
+					var jobName = jobNameElt.value;
+					jobName = jobName.trim();
+					if (jobName == "") {
+						nameErrorSpan.innerHTML = "岗位名不能为空";
+					} else {
+						if (jobName.length < 1 || jobName.length > 20) {
+							nameErrorSpan.innerHTML = "岗位名长度必须在[1-20]之间";
+						} else {
+							var regExp = /^[\u4E00-\u9FA5A-Za-z0-9]{1,20}$/
+							var ok = regExp.test(jobName)
+							if (ok) {
+								nameErrorSpan.innerHTML = "";
+							} else {
+								nameErrorSpan.innerHTML = "请输入正确格式！";
+							}
+						}
+					}
+				}
+				jobNameElt.onfocus = function() {
+					nameErrorSpan.innerHTML = "";
+				}
+				
+				// 预先填充已知信息
+				if (order != "") {
+					$.ajax({
+						type: "POST",
+						url: "http://127.0.0.1:8080/jobShowing",
+				
+						data: {
+							email: email,
+							jobOrder: order
+						},
+						//请求成功则调用函数
+						success: function(response) {
+							document.getElementById('createTime').innerHTML = response["updateTime"];
+							document.getElementById('jobName').value = response["jobName"];
+							document.getElementById('sal').value = response["salary"];
+							document.getElementById('duty').value = response["duty"];
+							document.getElementById('require').value = response["jobRequirements"];
+							document.getElementById('workplace').value = response["workplace"];
+						}
+					})
+				}
+				
+				// 保存按钮
+				document.getElementById("save").onclick = function() {
+					document.getElementById("jobName").focus();
+					document.getElementById("jobName").blur();
+					//点击编辑按钮获取当前日期
+					var nowTime = document.getElementById('createTime')
+					//若是新建岗位，则获取本地日期
+					if (document.getElementById('createTime').innerHTML == '' && nameErrorSpan.innerHTML == '') {
+						var nowTime = new Date();
+						nowTime = nowTime.toLocaleDateString();
+						document.getElementById('createTime').innerHTML = nowTime;
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/createJob",
+				
+							data: {
+								email: email,
+								updateTime: nowTime,
+								jobName: document.getElementById("jobName").value,
+								salary: document.getElementById("sal").value,
+								duty: document.getElementById("duty").value,
+								jobRequirements: document.getElementById("require").value,
+								workplace: document.getElementById("workplace").value
+							},
+							success: function(data) {
+								// alert("1")
+								if (data == 1) {
+									alert("创建成功");
+								} else {
+									alert("创建失败")
+								}
+							}
+						})
+					} else if (nameErrorSpan.innerHTML == "") {
+						//岗位已经存在，则改变为当前日期
+						var nowTime = new Date();
+						nowTime = nowTime.toLocaleDateString();
+						document.getElementById('createTime').innerHTML = nowTime;
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/setJob",
+				
+							data: {
+								order: order,
+								email: email,
+								updateTime: nowTime,
+								jobName: document.getElementById("jobName").value,
+								salary: document.getElementById("sal").value,
+								duty: document.getElementById("duty").value,
+								jobRequirements: document.getElementById("require").value,
+								workplace: document.getElementById("workplace").value
+							},
+				
+							success: function(data) {
+								if (data == 11) {
+									alert("保存成功");
+								} else {
+									alert("保存失败")
+								}
+							}
+						})
+					}
+				}
+				//删除按钮
+				document.getElementById("delate").onclick = function() {
+					$.ajax({
+						type: "POST",
+						url: "http://127.0.0.1:8080/deleteJob",
+				
+						data: {
+							email: email,
+							jobOrder: order
+						},
+				
+						success: function(data) {
+							if (data == 1) {
+								alert("删除成功")
+								window.location = '企业职位-选择.html'
+							} else {
+								alert("还没创建该岗位！")
+							}
+						}
+					})
+				}
+				// 发布按钮
+				document.getElementById('send').onclick = function(){
+					document.getElementById('save').click();
+					setTimeout( function(){
+						window.location = '企业发布.html';
+					}, 1 * 1000 );
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="main">
+			<span id="createTime"></span>	<button id="return" onclick="window.location='企业职位-选择.html'"></button>
+			<div>
+				<div class="title">岗位名称</div>
+				<div class="flex">
+					<img src="../img/课程目录.png" alt="">
+					<input type="text" id="jobName"/>
+				</div>	<span id="nameError"></span>
+			</div><br>
+			<div>
+				<div class="title">薪酬及亮点</div>
+				<div class="flex">
+					<img src="../img/薪酬.png" alt="">
+					<textarea id="sal"></textarea>
+				</div>
+			</div><br>
+			<div>
+				<div class="title">岗位职责</div>
+				<div class="flex">
+					<img src="../img/职业.png" alt="">
+					<textarea id="duty"></textarea>
+				</div>
+			</div><br>
+			<div>
+				<div class="title">岗位要求</div>
+				<div class="flex">
+					<img src="../img/要求.png" alt="">
+					<textarea id="require"></textarea>
+				</div>
+			</div><br>
+			<div>
+				<div class="title">工作地点</div>
+				<div class="flex">
+					<img src="../img/地点.png" alt="">
+					<textarea id="workplace"></textarea>
+				</div>
+			</div><br>
+		</div>
+		<div class="buttons">
+			<div type="button" id="save">保存</div>
+			<div type="button" id="delate">删除</div>
+			<div type="button" id="send">发布</div>
+		</div>
+	</body>
+</html>

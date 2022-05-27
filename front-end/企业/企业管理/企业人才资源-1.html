@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../cookie.js"></script>
+		<script src="../jquary.js"></script>
+		<link rel="stylesheet" href="企业人才资源-1.css">
+		<script type="text/javascript">
+			window.onload = function() {
+				email = ReadCookie("email");
+				// 展示已发布岗位
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:8080/showPostedJobs",
+					data: {
+						email: email
+					},
+					success: function(response) {
+						var list = response.split("$")
+						for (var i = 1; i < list.length; i++) {
+							var a = list[i].indexOf(":");
+							var jobId = list[i].substring(0, a);
+							var jobName = list[i].substring(a + 1);
+							
+							document.getElementById('jobs').innerHTML += "<input type='button' id='" +
+								jobName + "' value='" + jobName + "'class = 'job'"
+								+ "onclick=\" setCookie('HumanResourceJobId'," + jobId +
+								" ); window.location = '企业人才资源-2.html';\"" + "'/><br><br>"
+						}
+					}
+				})
+			}
+			
+		</script>
+	</head>
+	<body>
+		<h1 class="title">选择已发布的职位</h1>
+		<div class="jobs" id="jobs">
+			
+		</div>
+	</body>
+</html>

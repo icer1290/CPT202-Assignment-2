@@ -1,0 +1,98 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+@font-face {
+    font-family: 'jue';
+    src: url('img/AaJueXingHei-2.ttf') format('font-woff');
+}
+@font-face {
+    font-family: 'ZS';
+    src: url('img/AaZhongSong-2.ttf') format('font-woff');
+}
+
+@font-face {
+    font-family: 'shi';
+    src: url('img/狮尾圆体 Medium.ttf') format('font-woff');
+}
+
+/*全页面设定*/
+html {
+    background-color: white;
+    height: 90%;
+    width: 79%;
+    /* overflow: hidden; */
+    margin: 10px;
+    padding: 20px;
+    background-size: 100% 100%;
+}
+
+body {
+    line-height: 1.8em;
+    position: relative;
+    top: 30px;
+    left: 230px;
+    font-size: x-large;
+    letter-spacing: 2px;
+}
+
+h1 {
+    display: inline-block;
+    border: 2px solid #93B4EA;
+    border-radius: 10px;
+    font-size: x-large;
+    margin-bottom: 10px;
+    color: #707070;
+    font-size: xx-large;
+    font-family: 'jue';
+}
+
+
+.stuName {
+    position: relative;
+    left: 80px;
+    border-radius: 5px;
+    border: 2.5px solid #A6A6A6;
+    height: 45px;
+    width: 500px;
+    margin-top: 1em;
+    background-color: aliceblue;
+    background: url('../img/用户.jpg') no-repeat;
+    background-size: 30px;
+    background-position: 5%;
+    padding-left: 80px;
+    margin-bottom: 2em;
+	font-family: 'shi';
+	font-size: 25px;
+}
+.stuName:hover {
+	cursor: pointer;
+}
+
+
+span {
+    text-align: right;
+    position: relative;
+    top: 1.5em;
+    left: 18em;
+    font-size: large;
+    font-family: 'ZS';
+}
+
+#return {
+    position: relative;
+    left: 25em;
+    top: 1.5em;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: url('../img/返回.jpg') no-repeat;
+    background-size: 80%;
+	background-position: 4px;
+    border: 2px solid #707070;
+    border-radius: 50%;
+}
+#return:hover {
+	cursor: pointer;
+}

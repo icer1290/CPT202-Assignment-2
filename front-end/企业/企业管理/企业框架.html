@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>business</title>
+		<link rel="stylesheet" href="企业框架.css">
+		<script src="窗口切换.js" type="text/javascript" charset="utf-8"></script>
+		<!-- css写在外部的文件里 -->
+	</head>
+	<body>
+		<div class="header">
+			<button type="button" id="myBusiness" class="selectBtn">我的企业</button>
+			<button type="button" id="postJob" class="selectBtn">发布职位</button>
+			<button type="button" id="humanResou" class="selectBtn">人才资源</button>
+			<button id="return" onclick="window.location = '../企业登录.html'"></button>
+		</div> <br><br>
+		<iframe src="企业信息编辑.html" width="1300px" height="700px" id="iframe"></iframe>			<!-- 嵌套的窗口，可修改尺寸 -->
+	</body>
+</html>

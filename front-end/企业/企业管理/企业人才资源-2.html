@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../cookie.js"></script>
+		<script src="../jquary.js"></script>
+		<link rel="stylesheet" href="企业人才资源-2.css">
+		<script type="text/javascript">
+			window.onload = function() {
+				email = ReadCookie("email");
+				jobId = ReadCookie("HumanResourceJobId");
+				// 展示已发布岗位
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:8080/showSenders",
+					data: {
+						email: email,
+						jobId: jobId
+					},
+					success: function(response) {
+						try{
+							var list1 = response["username"].split("$");
+							var list2 = response["name"].split("$");
+							var list3 = response["r_order"].split("$");
+							// var aaa = response["name"];
+							// alert(list1);
+							for (var i = 1; i < list1.length; i++) {
+								var stuName = list2[i];
+								var stuUsername = list1[i];
+								var rOrder = list3[i];
+							}
+							
+							document.getElementById('students').innerHTML += 
+							"<input type='button' value='" + stuName + "' class='stuName' onclick=\" setCookie('stuUsername','" + stuUsername + "'); setCookie('rOrder'," + rOrder + "); window.location = '企业人才资源-3.html'; \">"
+							
+							// "<div class='student'>" + 
+							// "<a href='企业人才资源-3.html' class='stuName' onclick=\" setCookie('stuUsername','" + 
+							// stuUsername + "'); setCookie('rOrder'," + rOrder + ");\">" + stuName + "</a>" + 
+							// "" +
+							// "</div>"
+						}catch(e){
+						}
+					}
+				})
+			}
+			
+		</script>
+	</head>
+	<body>
+		<!-- "<input type='button' value='" + stuName + "' class='stuName' onclick=\" setCookie('stuUsername'," + stuUsername + "); setCookie('rOrder'," + rOrder + "); window.location = '企业人才资源.html'; \">" -->
+		<!-- "<a href='企业人才资源-3.html' class='stuName' onclick=\" setCookie('stuUsername','" + stuUsername + "'); setCookie('rOrder'," + rOrder + ");\">'" + stuName + "'</a>" -->
+		
+		<h1 class="title">选择要查看的投递者</h1> 	<button id="return" onclick="window.location = '企业人才资源-1.html'"></button>
+		<div class="students" id="students">
+			<!-- <div id="ZhangSan" class="student">
+				<a href="企业人才资源-3.html" id="ZS1" class="stuName">张三</a> <span id="XJTLU" class="school">XJTLU</span><br><br>
+			</div>
+			<div class="student">
+				<a href="" id="LS2" class="stuName">李四</a> <span id="XJTLU" class="school">苏州大学</span><br><br>
+			</div>
+			<div class="student">
+				<a href="" id="WW3" class="stuName">王五</a> <span id="XJTLU" class="school">苏科大</span><br><br>
+			</div> -->
+		</div>
+	</body>
+</html>

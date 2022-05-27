@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./../企业/jquary.js"></script>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="main">
+        <div class="head">
+            <div class="tab">
+                <div id="practice">实习</div>
+                <div id="on-campus" class="active">校招</div>
+            </div>
+            <div>
+                <div class="internship">
+                    <div class="select">
+                        <div>
+                            <span>行业：</span>
+                            <select id="industry">
+                                <option value="internet">互联网</option>
+                                <option value="design">设计/传媒</option>
+                                <option value="finance">金融</option>
+                                <option value="business">商务</option>
+                                <option value="educate">教育</option>
+                                <option value="biomedical">生物医疗</option>
+                            </select>
+                        </div>
+                        <div>
+                            <span>岗位：</span>
+                            <select id="position">
+                                <option value="1">开发部</option>
+                                <option value="2">运营部</option>
+                                <option value="3">投资部</option>
+                                <option value="4">财务部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="job" id="front-end-job">
+                            <p class="name title" onclick="goUrl()">ETL工程师</p>
+                            <p class="conditions salary">实习津贴 餐饮住宿 零基础实习</p>
+                            <p class="company">德邦基金</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="unknown" style="display: none"></div>
+            </div>
+
+        </div>
+    </div>
+<script>
+    function goUrl() {
+        location.href = 'iframe-查看职位.html'
+    }
+</script>
+</body>
+</html>

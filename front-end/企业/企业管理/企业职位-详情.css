@@ -1,0 +1,109 @@
+html {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 5px;
+    padding: 10px;
+    background-size: 100% 100%;
+  }
+@font-face {
+    font-family: 'shi';
+    src: url('../img/狮尾圆体 Medium.ttf');
+}
+@font-face {
+    font-family: 'asf';
+    src: url('../img/asfAsfafasgaasg.ttf');
+}
+.main {
+    font-family: 'asf';
+    overflow: auto;
+    height: 480px;
+    margin: 50px auto;
+    width: 700px;
+}
+.main textarea {
+    resize:none;
+    width: 500px;
+    height: 100px;
+    outline: none;
+}
+.main img {
+    width: 40px;
+    margin-right: 16px;
+}
+
+.main input {
+    height: 30px;
+    outline: none;
+    width: 400px;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.title {
+    margin-left: 56px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+.buttons {
+    /* margin: -50px auto; */
+    font-family: 'shi';
+    font-size: 30px;
+    position: relative;
+    top: -20%;
+    left:-10px;
+    display: flex;
+    justify-content: center;
+}
+.buttons div {
+    border: 2px solid #cbd3e1;
+    margin-right: 20px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 40px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+/*滚动条样式*/
+.main::-webkit-scrollbar {
+    width: 4px;
+    }
+    
+    .main::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+         background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .main::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+     border-radius: 0;
+     background: rgba(0, 0, 0, 0.1);
+    
+    }
+#nameError {
+	position: relative;
+	left: 75%;
+	top: -30px;
+	font-size: 15px;
+	color: red;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#return {
+    position: relative;
+    left: 35em;
+    top: 1.5em;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: url('../img/返回.jpg') no-repeat;
+    background-size: 80%;
+	background-position: 4px;
+    border: 2px solid #707070;
+    border-radius: 50%;
+}
+#return:hover {
+	cursor: pointer;
+}

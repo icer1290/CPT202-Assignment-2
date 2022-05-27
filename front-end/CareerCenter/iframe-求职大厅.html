@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>career center</title>
+		<link rel="stylesheet" href="iframe-求职大厅.css">
+		<script src="vue.js"></script>
+		<script src="jquary.js"></script>
+		<script src="cookie.js"></script>
+		<script>
+			window.onload = function() {
+				var kind = ReadCookie('kind');
+				var industry = ReadCookie('industry');
+				var title = ReadCookie('title');
+
+				document.getElementById('practice').onclick = function() {
+					document.getElementById('practice').style.backgroundColor = '#f0f0f0';
+					document.getElementById('on-campus').style.backgroundColor = 'white';
+				}
+				document.getElementById('on-campus').onclick = function() {
+					document.getElementById('on-campus').style.backgroundColor = '#f0f0f0';
+					document.getElementById('practice').style.backgroundColor = 'white';
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="hole" class="hole">
+			<div class="main">
+				<div class="header">
+					<div id="practice" @click="a3">实习</div>
+					<div id="on-campus" class="active" @click="a4">校招</div>
+					<!-- <button id="practice" @click="a3">实习</button>
+					<button id="on-campus" @click="a4">校招</button><br> -->
+				</div>
+
+				<div class="select">
+					<div>
+						<span>行业：</span>
+						<select id="industry" @change="a1">
+							<option value="">-请选择行业-</option>
+							<option value="互联网">互联网</option>
+							<option value="设计/传媒">设计/传媒</option>
+							<option value="金融">金融</option>
+							<option value="商务">商务</option>
+							<option value="生物医疗">生物医疗</option>
+						</select>
+					</div>
+
+					<div id="jobTitles">
+						<span>岗位：</span>
+						<select id="jobTitle" v-if="type === '互联网'" @change="a2">
+							<option value="">-请选择职位-</option>
+							<option value="产品运营">产品运营</option>
+							<option value="内容运营">内容运营</option>
+							<option value="产品经理">产品经理</option>
+							<option value="前端">前端</option>
+							<option value="后端">后端</option>
+							<option value="测试">测试</option>
+						</select>
+						<select id="jobTitle" v-else-if="type === '设计/传媒'" @change="a2">
+							<option value="">-请选择职位-</option>
+							<option value="策划">策划</option>
+							<option value="传媒">传媒</option>
+							<option value="剪辑/后期">剪辑/后期</option>
+							<option value="版式设计">版式设计</option>
+							<option value="编导">编导</option>
+							<option value="多媒体制作">多媒体制作</option>
+						</select>
+						<select id="jobTitle" v-else-if="type === '金融'" @change="a2">
+							<option value="">-请选择职位-</option>
+							<option value="风控">风控</option>
+							<option value="基金">基金</option>
+							<option value="经济研究">经济研究</option>
+							<option value="互联网金融">互联网金融</option>
+							<option value="证券">证券</option>
+							<option value="分析师">分析师</option>
+						</select>
+						<select id="jobTitle" v-else-if="type === '商务'" @change="a2">
+							<option value="">-请选择职位-</option>
+							<option value="市场商务">市场商务</option>
+							<option value="企划">企划</option>
+							<option value="市场顾问">市场顾问</option>
+							<option value="网络营销">网络营销</option>
+							<option value="海外市场">海外市场</option>
+							<option value="商品经理">商品经理</option>
+						</select>
+						<select id="jobTitle" v-else-if="type === '生物医疗'" @change="a2">
+							<option value="">-请选择职位-</option>
+							<option value="生物制药">生物制药</option>
+							<option value="生物工程">生物工程</option>
+							<option value="医疗器械">医疗器械</option>
+							<option value="临床研究">临床研究</option>
+							<option value="生信">生信</option>
+							<option value="医药项目经理">医药项目经理</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="jobs" id="jobs">
+					<div id="content" class="box">
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<script>
+			new Vue({
+				el: "#hole",
+				data: {
+					kind: "实习",
+					type: '',
+					title: ''
+				},
+				mounted: function() {
+					this.b();
+				},
+				methods: {
+					a1() {
+						this.type = document.getElementById('industry').value;
+						setCookie("industry", this.type);
+						try {
+							var index = document.getElementById('jobTitle').selectedIndex;
+							this.title = document.getElementById('jobTitle').indexOf(index);
+						} catch (e) {};
+						this.a2();
+					},
+					a3() {
+						setCookie("kind", "实习");
+						this.kind = '实习';
+						this.a2();
+					},
+					a4() {
+						setCookie("kind", "校招");
+						this.kind = '校招';
+						this.a2();
+					},
+					a2() {
+						document.getElementById('jobs').innerHTML = "";
+						var a = this.kind;
+						setTimeout(function() {
+							var b = document.getElementById('industry').value;
+							try {
+								var c = document.getElementById('jobTitle').value;
+							} catch {}
+							this.title = c;
+							setCookie("title", c);
+							$.ajax({
+								type: "POST",
+								url: "http://127.0.0.1:8080/showPostedJobs_careerCenter",
+								data: {
+									jobType: a,
+									industry: b,
+									jobTitle: c
+								},
+								success: function(response) {
+									try {
+										var datails = response["datails"];
+										var list = datails.split("$");
+										var salarys = response["salary"];
+										var list2 = salarys.split("$");
+										for (var i = 1; i < list.length; i++) {
+											var x = list[i].indexOf(":");
+											var y = list[i].indexOf("#");
+											var id = list[i].substring(0, x);
+											var corName = list[i].substring(x + 1, y);
+											var jobName = list[i].substring(y + 1);
+
+											var salary = list2[i];
+											document.getElementById('jobs').innerHTML +=
+												"<div id='content' class='box'><a href='iframe-查看职位.html' id='" +
+												id +
+												"' class='job' onclick=\"setCookie('careerCenterJobId'," +
+												id +
+												" ); setCookie('corName','" +
+												corName +
+												" ');\">" +
+												jobName +
+												"</a></br></br>" +
+												"<p class='salary'>" + salary + "</p>" +
+												"<p class='company'>" + corName +
+												"</p></div><br><br>";
+										}
+									} catch (e) {}
+								}
+							})
+						}, 200)
+					},
+					b() {
+						var kind = ReadCookie('kind');
+						setTimeout(function() {
+							if (kind == '校招') {
+								document.getElementById('on-campus').click();
+							} else {
+								document.getElementById('practice').click();
+							}
+						}, 300)
+						var industry = ReadCookie('industry');
+						var title = ReadCookie('title');
+						this.kind = kind;
+						this.type = industry;
+						setTimeout(function() {
+							document.getElementById('industry').value = industry;
+							document.getElementById('jobTitle').value = title;
+						}, 200);
+						this.a2();
+					}
+				}
+			})
+		</script>
+		<!-- "<a href='iframe-查看职位.html' id='" + id + "' class='job' onclick=\"setCookie('jobId," + id + "')\">" + jobName + "</a>" -->
+		<!-- "<a href='iframe-查看职位.html' id='" + id + "' class='job' onclick=\"setCookie('jobId'," + id + " ); setCookie('corName'," + corName + " )\">" + jobName + "</a>" -->
+		<!-- "<p class='salary'>" + salary + "</p>" -->
+	</body>
+</html>

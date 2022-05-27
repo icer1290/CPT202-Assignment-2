@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="iframe-查看职位.css">
+		<script src="jquary.js"></script>
+		<script src="cookie.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				id = ReadCookie('careerCenterJobId');
+				corName = ReadCookie('corName');
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:8080/careerCenterJobPostedShowing",
+								
+					data: {
+						jobId: id
+					},
+					success: function(response) {
+						document.getElementById('title').innerText = response["jobName"];
+						document.getElementById('para1').innerText = response["salary"];
+						document.getElementById('para2').innerText = response["duty"];
+						document.getElementById('para3').innerText = response["jobRequirements"];
+						document.getElementById('para4').innerText = response["workplace"];
+					}
+				})
+				document.getElementById('sendResume').onclick = function(){
+					window.location = 'iframe-提交简历.html';
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="hole">
+			<div class="main">
+				<div class="header">
+					<h1 id="title">前端实习生</h1> <span id="company">网易有道</span>
+				</div>
+				<button id="back" onclick="window.location='iframe-求职大厅.html'"></button>
+				<div class="content">
+					<h2 class="subTitle" id="salary">薪酬及亮点</h2><br>
+					<p class="discription" id="para1"></p><br>
+					<h2 class="subTitle" id="duty">岗位职责</h2><br>
+					<p class="discription" id="para2"></p><br>
+					<h2 class="subTitle" id="requirements">岗位要求</h2><br>
+					<p class="discription" id="para3"></p><br>
+					<h2 class="subTitle" id="location">工作地点</h2><br>
+					<p class="discription" id="para4"></p><br>
+				</div>
+				<button id="sendResume">投个简历</button>
+			</div>
+		</div>
+	</body>
+</html>

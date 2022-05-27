@@ -1,0 +1,121 @@
+@font-face {
+    font-family: AaJueXingHei;
+    src: url('img/AaJueXingHei75J.ttf') format('font-woff');
+}
+@font-face {
+    font-family: AaZhongSong;
+    src: url('img/AaZhongSong-2.ttf') format('font-woff');
+}
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #999;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+	background-color: #666;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	background-color: #333;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+}
+.hole {
+    width: 100%;
+    /*height: 100%;*/
+    height: calc(100% - 100px);
+    padding-top: 100px;
+    color: #383838;
+    font-family: AaZhongSong;
+}
+.main {
+    width: 80%;
+    height: 98%;
+    background: #f0f0f0;
+    border: 1px solid #cac7d2;
+    border-radius: 8px;
+    margin: 0 auto;
+    /*margin-top: 100px;*/
+    overflow: auto;
+}
+.header {
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    height: 100px;
+    font-family: AaJueXingHei;
+}
+.header > div {
+    width: 50%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 40px;
+    line-height: 100px;
+    border-radius: 8px;
+}
+.active {
+    background: #fff;
+}
+.select {
+    display: flex;
+    margin: 20px 0 30px;
+}
+.select span {
+    color: #2A82E4;
+    margin-right: 12px;
+}
+.select > div {
+    width: 50%;
+    text-align: center;
+}
+select {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+.jobs {
+    width: 80%;
+    margin: 0 auto;
+}
+.box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+.job {
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+}
+.box > p {
+    margin-bottom: 30px;
+}
+.salary {
+    color: #707070;
+}
+.box .company {
+    margin: 0;
+    color: #2A82E4;
+}

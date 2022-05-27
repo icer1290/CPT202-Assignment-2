@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>register</title>
+
+		<style type="text/css">
+			span {
+				font-size: 12px;
+				color: red;
+				position: relative;
+				left: 235px;
+				top: -2.5px;
+			}
+			#nameError {
+				font-size: 12px;
+				color: red;
+				position: relative;
+				left: 219px;
+				top: -2.5px;
+			}
+			#pwdError,#eduError {
+				font-size: 12px;
+				color: red;
+				position: relative;
+				left: 203px;
+				top: -2.5px;
+			}
+
+			html {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				min-width: 1000px;
+				z-index: -10;
+				zoom: 1;
+				background-color: #fff;
+				background: url(./图片/background.png);
+				background-repeat: no-repeat;
+				background-size: cover;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+				background-position: center 0;
+			}
+
+			blockquote {
+				background-image: url(background.png);
+				display: block;
+				background: pink;
+				padding: 50px 80px 70px;
+				margin: 5% 35% 80% 35%;
+				position: relative;
+
+				/*字体*/
+				font-family: Georgia, serif;
+				font-size: 16px;
+				line-height: 1.5;
+				color: #d6a7c6 text-align:justify;
+
+
+				/*盒子阴影-选项*/
+				-moz-box-shadow: 2px 2px 30px #ccc;
+
+				-webkit-box-shadow: 2px 2px 30px #ccc;
+
+				box-shadow: 2px 2px 30px #ccc;
+
+			}
+
+			.注册账号 {
+				text-align: center;
+				color: rgb(241, 239, 241);
+				letter-spacing: 0;
+				text-shadow: 0px 1px 0px#999, 0px 2px 0px#888, 0px 3px 0px#777, 0px 4px 0px #666, 0px 5px 0px#555, 0px 6px 0px#444, 0px 7px 0px#333, 0px 8px 7px#001135
+			}
+
+			input {
+				position: relative;
+				left: 15%;
+				outline-style: none;
+				outline-style: none;
+				border: 2px solid #ccc;
+				border-radius: 5px;
+
+				height: 25px;
+				width: 250px;
+			}
+
+			input:focus {
+				border-color: #66afe9;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+			}
+
+			select {
+				position: absolute;
+				left: 150px;
+			}
+
+			#regbtn {
+				border: 2px solid #e2a0c7;
+
+				position: relative;
+				left: 35%;
+				top: 50%;
+
+				background-color: transparent;
+				color: #e2a0c7;
+
+				height: 40px;
+				width: 100px;
+				
+				font-size: 16px;
+				cursor: pointer;
+				transition: 256ms all;
+				border-radius: 20px;
+			}
+
+			.login {
+				position: relative;
+				left: 45%;
+				top: 60%;
+			}
+			.login:hover {
+				color: red;
+				font-weight: blod;
+			}
+			
+			#regbtn:hover {
+				background-color: #e2a0c7;
+
+				color: #fff;
+
+			}
+		</style>
+
+
+	</head>
+	<body>
+		<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+
+				var nameErrorSpan = document.getElementById("nameError");
+
+				// 给id="username"的节点绑定blur事件
+				var usernameElt = document.getElementById("username");
+				usernameElt.onblur = function() {
+					// 获取用户名
+					var username = usernameElt.value;
+					// 去除掉前后空白
+					username = username.trim();
+					if (username == "") {
+						nameErrorSpan.innerHTML = "用户名不能为空";
+					} else {
+						// 用户名不是空,继续判断长度是否合法
+						if (username.length < 6 || username.length > 14) {
+							nameErrorSpan.innerHTML = "用户名长度必须在[6-14]之间";
+						} else {
+							// 用户名不为空,并且长度也合法,接下来继续判断用户名中是否有特殊符号
+							var regExp = /^[a-zA-Z0-9]+$/
+							var ok = regExp.test(username)
+							if (ok) {
+								// 合法
+								nameErrorSpan.innerHTML = "";
+							} else {
+								// 不合法
+								nameErrorSpan.innerHTML = "用户名只能由数字和字母组成";
+							}
+						}
+					}
+				}
+
+				// 获得焦点:清空span的错误信息.
+				usernameElt.onfocus = function() {
+					nameErrorSpan.innerHTML = "";
+				}
+
+				var emailErrorSpan = document.getElementById("emailError");
+
+				// 给id="email"的节点绑定blur事件
+				var emailElt = document.getElementById("email");
+				emailElt.onblur = function() {
+					// 获取邮箱
+					var email = emailElt.value;
+					// 去除掉前后空白
+					email = email.trim();
+					// 邮箱不能为空,不能为空串
+					if (email == "") {
+						emailErrorSpan.innerHTML = "邮箱不能为空";
+					} else {
+						// 邮箱不为空,接下来继续判断邮箱格式是否正确
+						var regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+						var ok = regExp.test(email)
+						if (ok) {
+							// 合法
+							emailErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							emailErrorSpan.innerHTML = "邮箱格式不正确";
+						}
+
+					}
+				}
+
+				// 获得焦点:清空span的错误信息.
+				emailElt.onfocus = function() {
+					emailErrorSpan.innerHTML = "";
+				}
+
+				var pwdErrorSpan = document.getElementById("pwdError");
+				// 确认密码失去焦点就验证.
+				document.getElementById("confirmpwd").onblur = function() {
+					//获取密码
+					var userpwd = document.getElementById("userpwd").value;
+					//获取确认密码
+					var confirmpwd = document.getElementById("confirmpwd").value;
+					//进行比对
+					if (userpwd != confirmpwd) {
+						pwdErrorSpan.innerHTML = "密码和确认密码不一致";
+					} else {
+						pwdErrorSpan.innerHTML = "";
+					}
+				}
+
+
+				document.getElementById("confirmpwd").onfocus = function() {
+					pwdErrorSpan.innerHTML = "";
+				}
+
+
+				var userpwdErrorSpan = document.getElementById("userpwdError");
+
+				// 给id="userpwd"的节点绑定blur事件
+				var pwdElt = document.getElementById("userpwd");
+				pwdElt.onblur = function() {
+					var pwd = pwdElt.value;
+					// 去除掉前后空白
+					pwd = pwd.trim();
+					if (pwd == "") {
+						userpwdErrorSpan.innerHTML = "密码不能为空";
+					} else {
+						var regExp = /^[A-Za-z0-9]+$/
+						var ok = regExp.test(pwd)
+						if (ok) {
+							// 合法
+							userpwdErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							userpwdErrorSpan.innerHTML = "密码只能由数字和英文字母组成";
+						}
+					}
+				}
+
+
+				// 获得焦点:清空span的错误信息.
+				pwdElt.onfocus = function() {
+					userpwdErrorSpan.innerHTML = "";
+				}
+
+
+				var ageErrorSpan = document.getElementById("ageError");
+
+				// 给id="age"的节点绑定blur事件
+				var ageElt = document.getElementById("age");
+				ageElt.onblur = function() {
+					// 获取年龄
+					var age = ageElt.value;
+					// 去除掉前后空白
+					age = age.trim();
+					// 年龄不能为空,不能为空串
+					if (age == "") {
+						ageErrorSpan.innerHTML = "年龄不能为空";
+					} else {
+						// 年龄不为空,并且长度也合法,接下来继续判断年龄中是否有特殊符号
+						var regExp = /^\d{2}$/
+						var ok = regExp.test(age)
+						if (ok) {
+							// 合法
+							ageErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							ageErrorSpan.innerHTML = "请输入正确年龄（两位阿拉伯数字）";
+						}
+					}
+				}
+
+
+				// 获得焦点:清空span的错误信息.
+				ageElt.onfocus = function() {
+					ageErrorSpan.innerHTML = "";
+				}
+
+
+				var phoneErrorSpan = document.getElementById("phoneError");
+
+				// 给id="phone"的节点绑定blur事件
+				var phoneElt = document.getElementById("phone");
+				phoneElt.onblur = function() {
+					var phone = phoneElt.value;
+					// 去除掉前后空白
+					phone = phone.trim();
+					if (phone == "") {
+						phoneErrorSpan.innerHTML = "电话不能为空";
+					} else {
+						var regExp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+						var ok = regExp.test(phone)
+						if (ok) {
+							// 合法
+							phoneErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							phoneErrorSpan.innerHTML = "请输入正确电话格式";
+						}
+					}
+				}
+
+
+				// 获得焦点:清空span的错误信息.
+				phoneElt.onfocus = function() {
+					phoneErrorSpan.innerHTML = "";
+				}
+
+
+				var eduErrorSpan = document.getElementById("eduError");
+
+				// 给id="edu"的节点绑定blur事件
+				var eduElt = document.getElementById("edu");
+				eduElt.onblur = function() {
+					var edu = eduElt.value;
+					// 去除掉前后空白
+					edu = edu.trim();
+					if (edu == "") {
+						eduErrorSpan.innerHTML = "学校不能为空";
+					} else {
+						var regExp = /^.{2,20}$/
+						var ok = regExp.test(edu)
+						if (ok) {
+							// 合法
+							eduErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							eduErrorSpan.innerHTML = "请输入正确学校名称";
+						}
+					}
+				}
+
+
+				// 获得焦点:清空span的错误信息.
+				eduElt.onfocus = function() {
+					eduErrorSpan.innerHTML = "";
+				}
+
+
+				document.getElementById("regbtn").onclick = function() {
+
+
+					usernameElt.focus(); //触发文本框的获取焦点事件
+
+					// 验证密码,怎么验证密码？让确认密码失去焦点
+					document.getElementById("confirmpwd").focus();
+					document.getElementById("confirmpwd").blur();
+
+					document.getElementById("age").focus();
+					document.getElementById("age").blur();
+
+					document.getElementById("phone").focus();
+					document.getElementById("phone").blur();
+
+					document.getElementById("email").focus();
+					document.getElementById("email").blur();
+
+					document.getElementById("userpwd").focus();
+					document.getElementById("userpwd").blur();
+
+					document.getElementById("edu").focus();
+					document.getElementById("edu").blur();
+
+					// 当所有的span都是空的表示表单合法
+					if (nameErrorSpan.innerHTML == "" && pwdErrorSpan.innerHTML == "" && emailErrorSpan.innerHTML ==
+						"" &&
+						ageErrorSpan.innerHTML == "") {
+
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/register",
+							// dataType: 'jsonp',
+							data: { //JSON对象
+								username: document.getElementById("username").value,
+								password: document.getElementById("userpwd").value,
+								email: document.getElementById("email").value,
+								school: document.getElementById("edu").value,
+								sex: document.getElementById("sex").value,
+								age: document.getElementById("age").value,
+								phone: document.getElementById("phone").value
+							},
+							//请求成功时调用的函数
+							success: function(data) { //data是形参名，代表返回的数据
+								if (data == 1) {
+									alert("创建成功！")
+									username = document.getElementById("username").value
+									password = document.getElementById("userpwd").value
+									setCookie("username", username)
+									setCookie("password", password)
+									window.location = "login.html"
+								} else {
+									alert("用户名已存在！")
+								}
+							}
+						})
+					}
+				}
+				document.getElementById("login").onclick = function() {
+					window.location = "login.html";
+				}
+			}
+		</script>
+
+		<blockquote>
+			<form target="_blank" action="" method="post" id="form">
+				<h1 class="注册账号">注册账号</h1>
+				用户名:&emsp;<input type="text" name="username" id="username" /><span class="err" id="nameError"></span><br><br>
+				<label for="sex">性别:
+					<select name="sex" id="sex">
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select><br><br>
+					年龄:&emsp;&emsp;<input type="text" name="age" id="age"><span class="err" id="ageError"></span><br><br>
+					手机:&emsp;&emsp;<input type="text" name="phone" id="phone"><span class="err" id="phoneError"></span><br><br>
+					邮箱:&emsp;&emsp;<input type="text" name="email" id="email" /><span class="err" id="emailError"></span><br><br>
+					密码:&emsp;&emsp;<input type="password" name="userpwd" id="userpwd" /><span class="err"
+						id="userpwdError"></span><br><br>
+					确认密码:<input type="password" id="confirmpwd" /><span class="err" id="pwdError"></span><br><br>
+					毕业学校:<input type="text" name="edu" id="edu"><span class="err" id="eduError"></span><br><br>
+					<!-- 表单所有项目都合法才能提交 -->
+					<input type="button" class="btn" id="regbtn" value="提交" />
+					<a href="login.html" class="login" id="login">我有账号</a>
+			</form>
+		</blockquote>
+	</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../cookie.js"></script>
+		<script src="../jquary.js"></script>
+		<link rel="stylesheet" href="企业人才资源-3.css">
+		<script>
+			window.onload = function(){
+				function back() {
+					location.href = '企业人才资源-1.html'
+				}
+				
+				var username = ReadCookie('stuUsername');
+				var r_order = ReadCookie('rOrder');
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:8080/showSenderResume",
+					data: {
+						username: username,
+						r_order: r_order
+					},
+					success: function(response) {
+						var stu_name = response["stu_name"];
+						var r_project = response["r_project"];
+						var r_course = response["r_course"];
+						var r_award = response["r_award"];
+						var r_hobby = response["r_hobby"];
+						var r_skill = response["r_skill"];
+						var r_evaluate = response["r_evaluate"];
+						var r_job = response["r_job"];
+						
+						document.getElementById('stu_name').innerText = stu_name;
+						document.getElementById('r_project').innerText = r_project;
+						document.getElementById('r_course').innerText = r_course;
+						document.getElementById('r_award').innerText = r_award;
+						document.getElementById('r_hobby').innerText = r_hobby;
+						document.getElementById('r_skill').innerText = r_skill;
+						document.getElementById('r_evaluate').innerText = r_evaluate;
+						document.getElementById('r_job').innerText = r_job;
+					}
+				})
+				$.ajax({
+					type:"POST",
+					url:"http://127.0.0.1:8080/beforeEdit",
+					data: 
+					{
+						username : username
+					},
+					success:function(data){
+						var a = data.indexOf("#");
+						var b = data.indexOf("$");
+						var c = data.indexOf("%");
+						var age = data.substring(0,a);
+						var phone = data.substring(a+1,b);
+						var email = data.substring(b+1,c);
+						var school = data.substring(c+1,data.length);
+						document.getElementById("age").innerText = age;
+						document.getElementById("phone").innerText = phone;
+						document.getElementById("email").innerText = email;
+						document.getElementById("edu").innerText = school;
+					}
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<div class="back" id="return" onclick="back()">
+			<img src="../img/撤销.png" alt="">
+		</div>
+		<div class="info">
+			<div class="blue"></div>
+			<h2 class="stuName" id="stu_name"></h2>
+			<h3 class="school" id="edu"></h3>
+		</div>
+		
+		
+		<!--		<button id="return" onclick="window.location = '企业人才资源-1.html'"></button>-->
+		<div class="main">
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">年龄&emsp;&emsp;</h4>
+				<p class="content" id="age"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">所学课程</h4><br>
+				<p class="content" id="r_course"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">技能&emsp;&emsp;</h4>
+				<p class="content" id="r_skill"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">获奖信息</h4>
+				<p class="content" id="r_award"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">项目经历</h4>
+				<p class="content" id="r_project"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">工作经历</h4>
+				<p class="content" id="r_job"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">爱好&emsp;&emsp;</h4>
+				<p class="content" id="r_hobby"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">自我评价</h4>
+				<p class="content" id="r_evaluate"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">电话</h4>
+				<p class="content" id="phone"></p>
+			</div>
+			<div>
+				<div class="blue"></div>
+				<h4 class="subTitle">邮箱</h4>
+				<p class="content" id="email"></p>
+			</div>
+		</div>
+	</body>
+</html>

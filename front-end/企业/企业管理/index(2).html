@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Posting details</title>
+  <style>
+    @font-face {
+      font-family: 'shi';
+      src: url('img/狮尾圆体 Medium.ttf');
+    }
+    @font-face {
+      font-family: 'asf';
+      src: url('img/asfAsfafasgaasg.ttf');
+    }
+    html {
+      background-color: white;
+      overflow: hidden;
+      padding-left: 300px;
+      background-size: 100% 100%;
+      line-height: 50px;
+    }
+    .main {
+      width: 100%;
+      margin: 50px;
+      font-family: 'asf';
+      font-size: x-large;
+    }
+    select {
+      height: 45px;
+      border-radius: 6px;
+      width: 500px;
+      margin-bottom: 20px;
+      outline: none;
+      font-size: large;
+    }
+    .title {
+      background: #C2D4F0;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 20px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+    }
+    #confirm {
+      border: 1px solid #C2D4F0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 25px;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: 'shi';
+    }
+    .button {
+      padding-left: 30px;
+      text-align: center;
+      width: 450px;
+    }
+  </style>
+</head>
+<body>
+<div class="main">
+  <div>
+    <div>
+      <span class="title">类型</span>
+    </div>
+
+    <select id="types">
+      <option value="practice">实习/IT</option>
+      <option value="on-campus">校招</option>
+    </select><br>
+
+    <div>
+      <span class="title">行业</span>
+    </div>
+
+    <select id="industry">
+      <option value="internet">互联网</option>
+      <option value="design">设计/传媒</option>
+      <option value="finance">金融</option>
+      <option value="business">商务</option>
+      <option value="education">教育</option>
+      <option value="biomedical">生物医疗</option>
+    </select><br>
+
+    <div>
+      <span class="title">职位</span>
+    </div>
+    <select id="job">
+      <option value="aaa">职位A</option>
+      <option value="bbb">职位B</option>
+      <option value="ccc">职位C</option>
+      <option value="ddd">职位D</option>
+    </select>
+  </div>
+  <br>
+  <div class="button">
+    <button id="confirm">确认发布</button>
+  </div>
+</div>
+
+</body>
+</html>

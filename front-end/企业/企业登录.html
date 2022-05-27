@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>login</title>
+		<style type="text/css">
+			.err {
+				font-size: 12px;
+				color: red;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="企业登录.css"/>
+		
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				if (ReadCookie('email')!='') {
+					// document.getElementById("email").value = ReadCookie('email');
+					// document.getElementById("userpwd").value = ReadCookie('password');
+				}
+				
+				var emailErrorSpan = document.getElementById("emailError");
+				
+				// 给id="email"的节点绑定blur事件
+				var emailElt = document.getElementById("email");
+				emailElt.onblur = function() {
+					// 获取用户名
+					var email = emailElt.value;
+					// 去除掉前后空白
+					email = email.trim();
+					//if(email.length == 0){}
+					if (email == "") {
+						emailErrorSpan.innerHTML = "邮箱不能为空";
+					} else {
+						var regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+						var ok = regExp.test(email)
+						if (ok) {
+							// 合法
+							emailErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							emailErrorSpan.innerHTML = "邮箱格式不正确";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				emailElt.onfocus = function() {
+					emailErrorSpan.innerHTML = "";
+				}
+				
+				
+				var userpwdErrorSpan = document.getElementById("userpwdError");
+				
+				// 给id="userpwd"的节点绑定blur事件
+				var pwdElt = document.getElementById("password");
+				pwdElt.onblur = function() {
+					var pwd = pwdElt.value;
+					// 去除掉前后空白
+					pwd = pwd.trim();
+					if (pwd == "") {
+						userpwdErrorSpan.innerHTML = "密码不能为空";
+					} else {
+						var regExp = /^[A-Za-z0-9]+$/
+						var ok = regExp.test(pwd)
+						if (ok) {
+							// 合法
+							userpwdErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							userpwdErrorSpan.innerHTML = "密码只能由数字和英文字母组成";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				pwdElt.onfocus = function() {
+					userpwdErrorSpan.innerHTML = "";
+				}
+				
+				
+				document.getElementById("loginBtn").onclick = function() {
+					document.getElementById("email").focus();
+					document.getElementById("email").blur();
+				
+					document.getElementById("password").focus();
+					document.getElementById("password").blur();
+				
+					if (emailErrorSpan.innerHTML == "" && userpwdErrorSpan.innerHTML == "") {
+						/* 提交URL */
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/CorLogin",
+							// dataType: 'jsonp',
+							data: { //JSON对象
+								email: document.getElementById("email").value,
+								password: document.getElementById("password").value
+							},
+							//请求成功时调用的函数
+							success: function(data) {
+								if (data == 1) {
+									alert("登录成功！")	
+									email = document.getElementById("email").value
+									password = document.getElementById("password").value
+									setCookie("email", email)
+									setCookie("password", password)
+									window.location = '企业管理/企业框架.html';
+								} else {
+									alert("邮箱或密码错误！")
+								}
+							}
+						})
+					}
+				}
+			}
+			
+				
+		</script>
+	</head>
+	<body>
+		<div class="main"></div>
+		<div class="box">
+			<button id="return" onclick="window.location = '../index.html'"></button>
+			<div class="container">
+				<div class="input-class">
+					<div>
+						<svg t="1648038787315" class="icon icon-1" viewBox="0 0 1024 1024" version="1.1"
+							xmlns="http://www.w3.org/2000/svg" p-id="2194" width="40" height="40">
+							<path
+								d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667zM288 810.666667c0-123.733333 100.266667-224 224-224S736 686.933333 736 810.666667c-61.866667 46.933333-140.8 74.666667-224 74.666666s-162.133333-27.733333-224-74.666666z m128-384c0-53.333333 42.666667-96 96-96s96 42.666667 96 96-42.666667 96-96 96-96-42.666667-96-96z m377.6 328.533333c-19.2-96-85.333333-174.933333-174.933333-211.2 32-29.866667 51.2-70.4 51.2-117.333333 0-87.466667-72.533333-160-160-160s-160 72.533333-160 160c0 46.933333 19.2 87.466667 51.2 117.333333-89.6 36.266667-155.733333 115.2-174.933334 211.2-55.466667-66.133333-91.733333-149.333333-91.733333-243.2 0-204.8 168.533333-373.333333 373.333333-373.333333S885.333333 307.2 885.333333 512c0 93.866667-34.133333 177.066667-91.733333 243.2z"
+								p-id="2195"></path>
+						</svg>
+					</div>
+					<input type="text" placeholder="请输入邮箱" name="email" id="email" /><span id="emailError"></span> <!-- 字体 -->
+				</div>
+				<div class="input-class">
+					<svg t="1648039940331" class="icon icon-2" viewBox="0 0 1024 1024" version="1.1"
+						xmlns="http://www.w3.org/2000/svg" p-id="2206" width="40" height="40">
+						<path
+							d="M780.8 354.58H665.6v-42.89c0-72.31-19.85-193.3-153.6-193.3-138.87 0-153.6 135.05-153.6 193.3v42.89H243.2v-42.89C243.2 122.25 348.79 0 512 0s268.8 122.25 268.8 311.69v42.89z m-192 314.84c0-43.52-34.58-78.65-76.8-78.65s-76.8 35.13-76.8 78.65c0 29.46 15.4 54.47 38.44 67.82v89.64c0 21.74 17.25 39.7 38.4 39.7s38.4-17.96 38.4-39.7v-89.64c23-13.35 38.36-38.36 38.36-67.82zM896 512v393.61c0 65.26-51.87 118.39-115.2 118.39H243.2c-63.291 0-115.2-53.13-115.2-118.39V512c0-65.22 51.87-118.39 115.2-118.39h537.6c63.33 0 115.2 53.17 115.2 118.39z"
+							p-id="2207"></path>
+					</svg>
+					<input type="password" placeholder="请输入密码" name="password"id="password" /><span id="userpwdError"></span>
+					<!-- 字体 -->
+				</div>
+				<button class="login" id="loginBtn">登录</button>
+				<a href="企业注册.html" class="tag">没有账号？</a>
+			</div>
+		</div>
+	</body>
+</html>

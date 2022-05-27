@@ -1,0 +1,143 @@
+.main {
+	width: 100%;
+	height: 100%;
+}
+
+#nameError {
+	font-size: 12px;
+	color: red;
+}
+
+#timeTitle {
+	position: absolute;
+	left: 80px;
+	font-family: "微软雅黑";
+}
+#createTime {
+	position: absolute;
+	left: 155px;
+	top: 33px;
+	font-family: "bookman old style";
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #999;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+	background-color: #666;
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+	background-color: #333;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+}
+
+
+.right {
+	width: 80%;
+
+	padding: 20px;
+	padding-left: 40px;
+}
+
+.rightText {
+	width: 100%;
+}
+
+.rightText>div {
+	margin-top: 16px;
+}
+
+.right img {
+	width: 20px;
+}
+
+.input {
+	display: flex;
+	align-items: center;
+}
+
+.input:nth-child(1) {
+	margin-top: 0;
+}
+
+input {
+	height: 30px;
+	width: 80%;
+	border: 1px solid #E4E6EE;
+	padding: 0 16px;
+	border-radius: 4px;
+	margin-left: 16px;
+	font-size: 18px;
+}
+
+textarea {
+	margin-left: 16px;
+	resize: none;
+	border: 1px solid #E4E6EE;
+	padding: 16px;
+	width: 80%;
+	height: 80px;
+	border-radius: 4px;
+	font-size: 18px;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.flex input {
+	width: 100%;
+}
+
+.button {
+	display: flex;
+	justify-content: space-between;
+	margin: 30px 88px 5px 50px;
+}
+
+.button>div {
+	color: #808080;
+	background: #F7C1C1;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 18px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+#return {
+    position: relative;
+    left: 80%;
+    top: -30px;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: url('img/返回.png') no-repeat;
+    background-size: 80%;
+	background-position: 4px;
+    border: 2px solid #707070;
+    border-radius: 50%;
+}
+#return:hover {
+	cursor: pointer;
+}

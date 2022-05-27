@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>register</title>
+		<link rel="stylesheet" href="企业注册.css" type="text/css">
+		<style type="text/css">
+			.err {
+				font-size: 12px;
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 有需要的元素可以自行添加，不要修改下面的id****** -->
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			window.onload = function() {
+				var emailErrorSpan = document.getElementById("emailError");
+				//给id="email"绑定blur事件
+				var emailElt = document.getElementById("email");
+				emailElt.onblur = function() {
+					//获取邮箱
+					var email = emailElt.value;
+					//去除前后空白
+					email = email.trim();
+					//邮箱不能为空，不可是空串
+					if (email == "") {
+						emailErrorSpan.innerHTML = "<font color ='red'>邮箱不能为空！</font>";
+					} else {
+						var regExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+						var test = regExp.test(email)
+						if (test) {
+							emailErrorSpan.innerHTML = "";
+						} else {
+							emailErrorSpan.innerHTML = "<font color ='red'>邮箱格式错误！</font>";
+						}
+					}
+				}
+				//获得焦点，清空span信息
+				emailElt.onfocus = function() {
+					emailErrorSpan.innerHTML = "";
+				}
+
+				var pwdErrorSpan = document.getElementById("pwdError");
+				// 确认密码失去焦点就验证.
+				document.getElementById("confirmpwd").onblur = function() {
+					//获取密码
+					var userpwd = document.getElementById("userpwd").value;
+					//获取确认密码
+					var confirmpwd = document.getElementById("confirmpwd").value;
+					//进行比对
+					if (userpwd != confirmpwd) {
+						pwdErrorSpan.innerHTML = "<font color ='red'>密码不一致！</font>";
+					} else {
+						pwdErrorSpan.innerHTML = "";
+					}
+				}
+
+
+				document.getElementById("confirmpwd").onfocus = function() {
+					pwdErrorSpan.innerHTML = "";
+				}
+
+				var userpwdErrorSpan = document.getElementById("userpwdError");
+
+				// 给id="userpwd"的节点绑定blur事件
+				var pwdElt = document.getElementById("userpwd");
+				pwdElt.onblur = function() {
+					var pwd = pwdElt.value;
+					// 去除掉前后空白
+					pwd = pwd.trim();
+					if (pwd == "") {
+						userpwdErrorSpan.innerHTML = "<font color ='red'>密码不能为空！</font>";
+					} else {
+						var regExp = /^[A-Za-z0-9]+$/
+						var ok = regExp.test(pwd)
+						if (ok) {
+							// 合法
+							userpwdErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							userpwdErrorSpan.innerHTML = "<font color ='red'>密码只能由数字和字母组成！</font>";
+						}
+					}
+				}
+
+
+				// 获得焦点:清空span的错误信息.
+				pwdElt.onfocus = function() {
+					userpwdErrorSpan.innerHTML = "";
+				}
+
+				var comNameErrorSpan = document.getElementById("comNameError");
+
+
+				var comNameElt = document.getElementById("comName");
+				comNameElt.onblur = function() {
+					var comName = comNameElt.value;
+					// 去除掉前后空白
+					comName = comName.trim();
+					if (comName == "") {
+						comNameErrorSpan.innerHTML = "<font color ='red'>名称不能为空！</font>";
+					} else {
+						var regExp = /^.{2,20}$/
+						var test = regExp.test(comName)
+						if (test) {
+							// 合法
+							comNameErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							comNameErrorSpan.innerHTML = "<font color ='red'>请输入正确的企业名称！</font>";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				comNameElt.onfocus = function() {
+					comNameErrorSpan.innerHTML = "";
+				}
+
+				var locationErrorSpan = document.getElementById("locationError");
+
+
+				var locationElt = document.getElementById("location");
+				locationElt.onblur = function() {
+					var location = locationElt.value;
+					// 去除掉前后空白
+					location = location.trim();
+					if (location == "") {
+						locationErrorSpan.innerHTML = "<font color ='red'>地址不能为空！</font>";
+					} else {
+						var regExp = /^.{2,20}$/
+						var test = regExp.test(location)
+						if (test) {
+							// 合法
+							locationErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							locationErrorSpan.innerHTML = "<font color ='red'>请输入正确的地址！</font>";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				locationElt.onfocus = function() {
+					locationErrorSpan.innerHTML = "";
+				}
+
+
+				var positionErrorSpan = document.getElementById("positionError");
+
+
+				var positionElt = document.getElementById("position");
+				positionElt.onblur = function() {
+					var position = positionElt.value;
+					// 去除掉前后空白
+					position = position.trim();
+					if (position == "") {
+						positionErrorSpan.innerHTML = "<font color ='red'>信息不能为空！</font>";
+					} else {
+						var regExp = /^.{2,20}$/
+						var test = regExp.test(position)
+						if (test) {
+							// 合法
+							positionErrorSpan.innerHTML = "";
+						} else {
+							// 不合法
+							positionErrorSpan.innerHTML = "<font color ='red'>请输入正确的信息！</font>";
+						}
+					}
+				}
+				// 获得焦点:清空span的错误信息.
+				positionElt.onfocus = function() {
+					positionErrorSpan.innerHTML = "";
+				}
+
+
+
+
+
+				document.getElementById("createBtn").onclick = function() {
+
+
+					// 验证密码,怎么验证密码？让确认密码失去焦点
+					document.getElementById("confirmpwd").focus();
+					document.getElementById("confirmpwd").blur();
+
+					document.getElementById("email").focus();
+					document.getElementById("email").blur();
+
+					document.getElementById("userpwd").focus();
+					document.getElementById("userpwd").blur();
+
+					document.getElementById("comName").focus();
+					document.getElementById("comName").blur();
+
+					document.getElementById("location").focus();
+					document.getElementById("location").blur();
+
+					document.getElementById("position").focus();
+					document.getElementById("position").blur();
+
+					// 当所有的span都是空的表示表单合法
+					if (pwdErrorSpan.innerHTML == "" && emailErrorSpan.innerHTML == "" && userpwdErrorSpan.innerHTML ==
+						"" && comNameErrorSpan.innerHTML == "" && positionErrorSpan.innerHTML == "") {
+
+						$.ajax({
+							type: "POST",
+							url: "http://127.0.0.1:8080/CorRegister",
+							// dataType: 'jsonp',
+							data: { //JSON对象                    
+								password: document.getElementById("userpwd").value,
+								email: document.getElementById("email").value,
+								CorporateName: document.getElementById("comName").value,
+								address: document.getElementById("location").value,
+								TypeOfCoprorate: document.getElementById("comtype").value,
+								duty: document.getElementById("position").value
+							},
+							//请求成功时调用的函数
+							success: function(data) { //data是形参名，代表返回的数据
+								if (data == 1) {
+									alert("创建成功！")
+									email = document.getElementById("email").value
+									password = document.getElementById("userpwd").value
+									setCookie("email", email)
+									setCookie("password", password)
+									window.location = '企业登录.html'
+								} else {
+									alert("邮箱已存在！")
+								}
+							}
+						})
+					}
+				}
+			}
+		</script>
+		<div class="main">
+			<h1>创建企业账号</h1><br><br><br>
+			企业邮箱:&emsp;&emsp;<input type="text" name="email" id="email" /><span class="err" id="emailError">
+			</span><br><br>
+			密码:&emsp;&emsp;&emsp;&emsp;<input type="password" name="userpwd" id="userpwd" /><span class="err"
+				id="userpwdError"></span><br><br>
+			确认密码:&emsp;&emsp;<input type="password" id="confirmpwd" /><span class="err" id="pwdError"></span><br><br>
+			企业名称:&emsp;&emsp;<input type="text" name="comName" id="comName" /><span class="err"
+				id="comNameError"></span><br><br>
+			地址(省、市): <input type="text" name="location" id="location" /><span class="err" id="locationError">
+			</span><br><br>
+			企业类型:&emsp;&emsp;<select name="comtype" id="comtype">
+				<option value="" selected="selected">——请选择——</option>
+				<option value="国有企业">国有企业</option>
+				<option value="集体所有制企业">集体所有制企业</option>
+				<option value="私营企业">私营企业</option>
+				<option value="股份制企业">股份制企业</option>
+				<option value="有限合伙企业">有限合伙企业</option>
+				<option value="联营企业">联营企业</option>
+				<option value="外商投资企业">外商投资企业</option>
+				<option value="个人投资企业">个人投资企业</option>
+			</select><br><br>
+			担任职务:&emsp;&emsp;<input type="text" name="position" id="position" /><span class="err" id="positionError">
+			</span><br><br>
+			<button type="button" id="createBtn" value="确认创建">确认创建</button>&emsp;&emsp;
+			<a href="企业登录.html">已有账号？去登录</a>
+		</div>
+	</body>
+
+</html>

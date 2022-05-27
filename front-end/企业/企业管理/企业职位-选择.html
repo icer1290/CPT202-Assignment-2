@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>job select</title>
+		<link rel="stylesheet" href="企业职位选择.css">
+		<script src="../cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../jquary.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				email = ReadCookie("email");
+				// 展示已有岗位
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:8080/showJobs",
+					data: {
+						email: email
+					},
+					success: function(response) {
+						var list = response.split("$")
+						for (var i = 1; i < list.length; i++) {
+							var a = list[i].indexOf(":");
+							var order = list[i].substring(0, a);
+							var jobName = list[i].substring(a + 1);
+							
+							document.getElementById('JOBs').innerHTML += "<input type='button' id='" +
+								jobName + "' value='" + jobName + "'class = 'job'"
+								+ "onclick=\" setCookie('jobOrder'," + order +
+								" ); window.location = '企业职位-详情.html';\"" + "'/><br><br>"
+						}
+					}
+				})
+			
+				// 给新建简历按钮绑定单击事件
+				document.getElementById("addJob").onclick = function() {
+					setCookie("jobOrder", '');
+					window.location = '企业职位-详情.html';
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+		<h1>选择职位</h1>
+		<!-- <div class="main"> -->
+			<div class="jobs" id="JOBs">
+				
+			</div><br>
+			<button type="button" id="addJob">添加职位</button>
+		<!-- </div> -->
+	</body>
+</html>

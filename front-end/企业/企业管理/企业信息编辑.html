@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>information</title>
+    <!-- css写在外部的文件里 -->
+	<link rel="stylesheet" href="企业编辑信息.css">
+	<script src="../cookie.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../jquary.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+	    window.onload = function() {
+	        /* 填充默认信息 */
+	        var email = ReadCookie("email");
+	        var firmName;
+	        var firmLocation;
+	        var comtype;
+	        var position;
+	        $.ajax({
+	            type: "POST",
+	            url: "http://127.0.0.1:8080/corBeforeEdit",
+	            data: {
+	                email: email
+	            },
+	            //请求成功时调用的函数
+	            success: function(data) {
+	                var a = data.indexOf("#");
+	                var b = data.indexOf("$");
+	                var c = data.indexOf("%");
+	                firmName = data.substring(0, a);
+	                firmLocation = data.substring(a + 1, b);
+	                comtype = data.substring(b + 1, c);
+	                position = data.substring(c + 1, data.length);
+	                document.getElementById("firmName").value = firmName;
+	                document.getElementById("firmLocation").value = firmLocation;
+	                document.getElementById("comtype").value = comtype;
+	                document.getElementById("position").value = position;
+	            }
+	        })
+	
+	
+	        var firmNameErrorSpan = document.getElementById("nameError");
+	
+	
+	        var firmNameElt = document.getElementById("firmName");
+	        firmNameElt.onblur = function() {
+	                var firmName = firmNameElt.value;
+	                // 去除掉前后空白
+	                firmName = firmName.trim();
+	                if (firmName == "") {
+	                    firmNameErrorSpan.innerHTML = "<font color ='red'>名称不能为空！</font>";
+	                } else {
+	                    var regExp = /^.{2,20}$/
+	                    var test = regExp.test(firmName)
+	                    if (test) {
+	                        // 合法
+	                        firmNameErrorSpan.innerHTML = "";
+	                    } else {
+	                        // 不合法
+	                        firmNameErrorSpan.innerHTML = "<font color ='red'>请输入正确的企业名称！</font>";
+	                    }
+	                }
+	            }
+	            // 获得焦点:清空span的错误信息.
+	        firmNameElt.onfocus = function() {
+	            firmNameErrorSpan.innerHTML = "";
+	        }
+	
+	
+	
+	        var locationErrorSpan = document.getElementById("locationError");
+	
+	
+	        var locationElt = document.getElementById("firmLocation");
+	        locationElt.onblur = function() {
+	                var firmLocation = locationElt.value;
+	                // 去除掉前后空白
+	                firmLocation = firmLocation.trim();
+	                if (firmLocation == "") {
+	                    locationErrorSpan.innerHTML = "<font color ='red'>地址不能为空！</font>";
+	                } else {
+	                    var regExp = /^.{2,20}$/
+	                    var test = regExp.test(firmLocation)
+	                    if (test) {
+	                        // 合法
+	                        locationErrorSpan.innerHTML = "";
+	                    } else {
+	                        // 不合法
+	                        locationErrorSpan.innerHTML = "<font color ='red'>请输入正确的地址！</font>";
+	                    }
+	                }
+	            }
+	            // 获得焦点:清空span的错误信息.
+	        locationElt.onfocus = function() {
+	            locationErrorSpan.innerHTML = "";
+	        }
+	
+	
+	        var positionErrorSpan = document.getElementById("positionError");
+	
+	
+	        var positionElt = document.getElementById("position");
+	        positionElt.onblur = function() {
+	                var position = positionElt.value;
+	                // 去除掉前后空白
+	                position = position.trim();
+	                if (position == "") {
+	                    positionErrorSpan.innerHTML = "<font color ='red'>信息不能为空！</font>";
+	                } else {
+	                    var regExp = /^.{2,20}$/
+	                    var test = regExp.test(position)
+	                    if (test) {
+	                        // 合法
+	                        positionErrorSpan.innerHTML = "";
+	                    } else {
+	                        // 不合法
+	                        positionErrorSpan.innerHTML = "<font color ='red'>请输入正确的信息！</font>";
+	                    }
+	                }
+	            }
+	            // 获得焦点:清空span的错误信息.
+	        positionElt.onfocus = function() {
+	            positionErrorSpan.innerHTML = "";
+	        }
+	
+	        document.getElementById("save").onclick = function() {
+	
+	
+	            document.getElementById("firmName").focus();
+	            document.getElementById("firmName").blur();
+	
+	            document.getElementById("firmLocation").focus();
+	            document.getElementById("firmLocation").blur();
+	
+	            document.getElementById("comtype").focus();
+	            document.getElementById("comtype").blur();
+	
+	            document.getElementById("position").focus();
+	            document.getElementById("position").blur();
+	
+	            // 当所有的span都是空的表示表单合法
+	            if (firmNameErrorSpan.innerHTML == "" && locationErrorSpan.innerHTML == "" && positionErrorSpan.innerHTML == "") {
+	
+	                $.ajax({
+	                    type: "POST",
+	                    url: "http://127.0.0.1:8080/corEdit",
+	                    data: {
+							email: email,
+	                        firmName: document.getElementById("firmName").value,
+	                        firmLocation: document.getElementById("firmLocation").value,
+	                        comtype: document.getElementById("comtype").value,
+	                        position: document.getElementById("position").value
+	                    },
+	                    success: function(data) {
+	                        if (data == 1) {
+	                            alert("修改成功！")
+	                        } else {
+	                            alert("修改失败！")
+	                        }
+	                    }
+	                })
+	            }
+	        }
+	    }
+	</script>
+</head>
+
+<body>
+    <div class="main">
+        企业名称:&emsp;&emsp;<input type="text" id="firmName" class="subTitle"/><br><br> <span id="nameError"></span> 
+		地址(省+市):&nbsp;<input type="text" id="firmLocation" class="subTitle"/><br><br> <span id="locationError"></span> 
+		企业类型:&emsp;&emsp;<select name="comtype" id="comtype" class="subTitle">
+				<option value="" selected="selected">——请选择——</option>
+				<option value="国有企业">国有企业</option>
+				<option value="集体所有制企业">集体所有制企业</option>
+				<option value="私营企业">私营企业</option>
+				<option value="股份制企业">股份制企业</option>
+				<option value="有限合伙企业">有限合伙企业</option>
+				<option value="联营企业">联营企业</option>
+				<option value="外商投资企业">外商投资企业</option>
+				<option value="个人投资企业">个人投资企业</option>
+			</select><br><br> 
+		担任职务:&emsp;&emsp;<input type="text" id="position" class="subTitle"/><br><br><span id="positionError"></span>
+
+        <button type="button" id="save">保存</button>
+    </div>
+</body>
+
+</html>
